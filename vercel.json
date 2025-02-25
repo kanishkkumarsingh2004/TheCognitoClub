@@ -4,7 +4,7 @@
       "src": "build_files.sh",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "staticfiles"
+        "distDir": "static"
       }
     },
     {
@@ -19,8 +19,8 @@
       "dest": "mywebsite/wsgi.py"
     },
     {
-      "src": "/staticfiles/(.*)",
-      "dest": "/staticfiles/$1"
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
     }
   ]
 }
