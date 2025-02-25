@@ -2,9 +2,9 @@ from django import forms
 
 class RegistrationForm(forms.Form):
     full_name = forms.CharField(max_length=100, required=True)
-    usn = forms.CharField(max_length=10, min_length=10, required=True, widget=forms.TextInput(attrs={'style': 'text-transform: uppercase'}))
+    usn = forms.CharField(max_length=10, min_length=10, required=True)
     branch = forms.CharField(max_length=50, required=True)
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'style': 'text-transform: lowercase'}))
+    email = forms.EmailField(required=True)
     mobile_number = forms.CharField(max_length=10, min_length=10, required=True)
     domains = forms.MultipleChoiceField(
         choices=[
@@ -18,7 +18,7 @@ class RegistrationForm(forms.Form):
         required=True,
         widget=forms.CheckboxSelectMultiple
     )
-    about_yourself = forms.CharField(max_length=500, required=True, help_text="Use 5 words only.")
+    about_yourself = forms.CharField(max_length=500, required=True)
 
 
 
