@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Event, UserProfile
-
+from .models import Event, UserProfile, Registration
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'venue', 'created_at')
