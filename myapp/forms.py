@@ -13,6 +13,7 @@ class RegistrationForm(forms.Form):
             ('event_management', 'Event Management'),
             ('social_media', 'Social Media'),
             ('coordinators', 'Coordinators'),
+            ('Outreach_and_Marketing', 'Outreach and Marketing'),
         ],
         required=True,
         widget=forms.CheckboxSelectMultiple
