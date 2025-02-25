@@ -164,7 +164,9 @@ def register(request):
                     branch=form.cleaned_data['branch'],
                     email=form.cleaned_data['email'],
                     mobile_number=form.cleaned_data['mobile_number'],
-                    domains=', '.join(form.cleaned_data['domains']),  # Convert list to string
+                    domains=', '.join(form.cleaned_data['domains']),  
+                    superpower=', '.join(form.cleaned_data['superpower']),
+                    excites=', '.join(form.cleaned_data['excites']), 
                     about_yourself=form.cleaned_data['about_yourself'],
                 )
                 registration.save()
