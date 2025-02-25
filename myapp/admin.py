@@ -59,7 +59,6 @@ def export_to_csv(modeladmin, request, queryset):
     
     return response
 export_to_csv.short_description = "Export selected registrations to CSV"
-
 @admin.register(Registration)
 class RegistrationAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'usn', 'branch', 'email', 'mobile_number','domains','about_yourself', 'created_at')
