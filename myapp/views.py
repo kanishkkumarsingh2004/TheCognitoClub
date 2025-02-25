@@ -144,7 +144,6 @@ def dashboard_view(request):
         'upcoming_events': upcoming_events
     }
     return render(request, 'myapp/dashboard.html', context)
-
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
