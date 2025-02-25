@@ -1,0 +1,53 @@
+<!-- myapp/templates/myapp/contact.html -->
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - The Cognito Club{% endblock %}
+
+{% block content %}
+    <!-- Contact Header -->
+    <section class="bg-black text-white py-12 md:py-16 relative">
+        <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+        <div class="container mx-auto text-center px-4 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Contact Us</h1>
+            <p class="text-lg md:text-xl text-gray-300">Connect with The Cognito Club for inquiries or collaborations.</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="py-12 md:py-16 bg-gray-900 relative z-10">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <!-- Contact Form -->
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg mb-8 border border-gray-700">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Drop Us a Line</h2>
+                <form action="{% url 'contact' %}" method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div>
+                        <input type="text" id="name" name="name" class="w-full p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 bg-gray-700 text-white placeholder-gray-400" placeholder="Your Name" required>
+                    </div>
+                    <div>
+                        <input type="email" id="email" name="email" class="w-full p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 bg-gray-700 text-white placeholder-gray-400" placeholder="Your Email" required>
+                    </div>
+                    <div>
+                        <textarea id="message" name="message" rows="5" class="w-full p-3 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 bg-gray-700 text-white placeholder-gray-400" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gray-700 text-white py-3 px-6 rounded-md font-semibold hover:bg-gray-600 transition duration-300 focus:ring-2 focus:ring-gray-500">Submit</button>
+                </form>
+                {% if messages %}
+                    <div class="mt-4">
+                        {% for message in messages %}
+                            <p class="text-white">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Contact Info -->
+            <div class="text-center">
+                <h3 class="text-xl font-semibold text-gray-300 mb-4">Reach Out Directly</h3>
+                <p class="text-gray-400 mb-2"><strong>Email:</strong>  thecognitoclub@gmail.com</p>
+                <p class="text-gray-400 mb-2"><strong>Phone:</strong>  +91 7898575626/ +91 8905239572</p>
+                <p class="text-gray-400"><strong>Visit Us:</strong> 45th km, NH - 209,Jakkasandra Post, Bengaluru - Kanakapura Rd, Bengaluru, Karnataka 562112</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

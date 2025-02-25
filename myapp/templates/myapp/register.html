@@ -1,0 +1,233 @@
+<!-- myapp/templates/myapp/register.html -->
+{% extends 'base.html' %}
+
+{% block title %}Register - The Cognito Club{% endblock %}
+
+{% block content %}
+    <!-- Register Header -->
+    <section class="bg-gradient-to-r from-gray-900 to-black text-white py-12 md:py-16 relative">
+        <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+        <div class="container mx-auto text-center px-4 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Join The Cognito Club</h1>
+            <p class="text-lg md:text-xl text-gray-300">Unlock exclusive benefits and join our community of thinkers</p>
+        </div>
+    </section>
+
+    <!-- Register Form -->
+    <section class="py-12 md:py-16 bg-black relative">
+        <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+        <div class="container mx-auto px-4 max-w-md relative z-10">
+            <div class="bg-gray-900/90 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-gray-800">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Register Yourself</h2>
+                
+                {% if form.errors %}
+                    <div class="bg-red-900/50 border border-red-800 text-red-200 px-4 py-3 rounded mb-4">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p>{{ error|escape }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error|escape }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if request.GET.usn %}
+                    <input type="hidden" name="usn" value="{{ request.GET.usn }}">
+                {% endif %}
+                <form method="POST" action="{% url 'register' %}" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Full Name -->
+                    <div>
+                        <label for="full_name" class="block text-gray-300 mb-2">What’s your full name?</label>
+                        <label for="full_name" class="block text-gray-300 mb-2"> (So we know what to call you 👀)</label>
+
+                        <input type="text" id="full_name" name="full_name" 
+                            class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
+                            required>
+                    </div>
+                
+                    <!-- USN -->
+                    <div>
+                        <label for="usn" class="block text-gray-300 mb-2">USN  (No, we won’t use it to take attendance… or will we? 🤔)</label>
+                        <input type="text" id="usn" name="usn" 
+                            class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
+                            required>
+                        <small class="text-gray-500 text-sm">Your USN must be unique</small>
+                    </div>
+                
+                    <!-- Branch -->
+                    <div>
+                        <label for="branch" class="block text-gray-300 mb-2">What’s your department & year?</label>
+                        <label for="branch" class="block text-gray-300 mb-2">(CSE-AIML, 2nd Year, etc.)</label>
+
+                        <input type="text" id="branch" name="branch" 
+                            class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
+                            required>
+                    </div>
+                
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-gray-300 mb-2">Drop your email (No spam, promise! 💌)</label>
+                        <input type="email" id="email" name="email" 
+                            class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
+                            required>
+                    </div>
+                
+                    <!-- Mobile Number -->
+                    <div>
+                        <label for="mobile_number" class="block text-gray-300 mb-2">Your WhatsApp number</label>
+                        <label for="mobile_number" class="block text-gray-300 mb-2">(for top-secret mission updates 📲)</label>
+
+                        <input type="tel" id="mobile_number" name="mobile_number" 
+                            class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
+                            pattern="[0-9]{10}" required>
+                    </div>
+                
+                    <!-- Domains (Checkboxes) -->
+                    <div>
+                        <label class="block text-gray-300 mb-2">Preferred Domains:</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="domains" value="design" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">Design</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="domains" value="tech" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">Tech</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="domains" value="event_management" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">Event Management</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="domains" value="social_media" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">Social Media</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="domains" value="coordinators" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">Coordinators</span>
+                            </label>
+                        </div>
+                        <small class="text-gray-500 text-sm">You can select multiple domains</small>
+                    </div>
+                
+                    <!-- Tell me about yourself -->
+                    <div>
+                        <label for="about_yourself" class="block text-gray-300 mb-2">Tell me about yourself:</label>
+                        <input type="text" id="about_yourself" name="about_yourself" 
+                            class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
+                            maxlength="50" required>
+                    </div>
+                    <!-- Superpower -->
+                    <!-- <div>
+                        <label class="block text-gray-300 mb-2">If Cognito Club gave you a superpower, what would it be?</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="superpower" value="tech_guru" 
+                                    class="form-radio h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🧠 Ultimate Tech Guru</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="superpower" value="public_speaking" 
+                                    class="form-radio h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🎤 Public Speaking Pro</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="superpower" value="design_wizard" 
+                                    class="form-radio h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🎨 Design Wizard</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="superpower" value="the_fixer" 
+                                    class="form-radio h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🛠️ The Fixer (Solving problems like a boss)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="superpower" value="mastermind" 
+                                    class="form-radio h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🚀 Mastermind (Big ideas, big impact!)</span>
+                            </label>
+                        </div>
+                    </div> -->
+                    <!-- Interests -->
+                    <!-- <div>
+                        <label class="block text-gray-300 mb-2">What excites you the most? (Pick as many as you like!)</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="ai_ml" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🤖 AI & ML (Making robots smarter than us!)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="devops_cloud" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">☁️ DevOps & Cloud (Because local storage is overrated)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="cybersecurity" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🔐 Cybersecurity (Hacking? Nah, "Ethical" hacking 😏)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="web_app_dev" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🌐 Web/App Dev (Building the next big thing?)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="data_science" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">📊 Data Science (Numbers don't lie, right?)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="competitive_coding" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">👾 Competitive Coding (Debugging is my cardio)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="event_management" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🎤 Event Management (Making things happen!)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="content_creation" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">✍️ Content Creation (Words, memes, or both?)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="graphic_design" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🎨 Graphic Design (Because aesthetics matter!)</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="interests" value="other" 
+                                    class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
+                                <span class="text-gray-300">🚀 Other (Tell us, we're curious!)</span>
+                            </label>
+                        </div>
+                    </div> -->
+
+                
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                        class="w-full bg-indigo-700/90 text-white py-3 px-6 rounded-md font-semibold hover:bg-indigo-800/90 transition duration-300 shadow-lg hover:shadow-indigo-500/20">
+                        Register
+                    </button>
+                </form>
+    
+                <!-- <p class="text-gray-500 text-center mt-4">
+                    Already have an account? 
+                    <a href="{% url 'login' %}" class="text-indigo-400 hover:text-indigo-300 transition duration-300">
+                        Sign In
+                    </a>
+                </p> -->
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,141 @@
+<!-- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Cognito Club{% endblock %}</title>
+    <link rel="icon" type="image/svg+png" href="{% static 'images/cognito_logo.png' %}">
+    <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
+    <script src="{% static 'myapp/js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-black text-white p-4 sticky top-0 shadow-md z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold flex items-center">
+                <img src="{% static 'images/cognito_logo.svg' %}" alt="Cognito Club Logo" id="cognito_main_logo" class="h-8 w-8 mr-2">
+                The Cognito Club
+            </a>
+            <button id="menu-toggle" class="md:hidden focus:outline-none hamburger" aria-label="Toggle menu">
+                <span class="line line1 block w-6 h-0.5 bg-white mb-1"></span>
+                <span class="line line2 block w-6 h-0.5 bg-white mb-1"></span>
+                <span class="line line3 block w-6 h-0.5 bg-white"></span>
+            </button>
+            <div id="menu" class="hidden md:flex md:space-x-6">
+                <a href="/" class="hover:text-red-500 transition duration-300">Home</a>
+                <a href="/about" class="hover:text-red-500 transition duration-300">About Us</a>
+                <a href="/register" class="hover:text-red-500 transition duration-300">Register</a>
+                <!-- <a href="/collaboration" class="hover:text-red-500 transition duration-300">Collaboration</a> -->
+                <a href="/contact" class="hover:text-red-500 transition duration-300">Contact</a>
+
+                {% if user.is_authenticated %}
+                    <a href="/dashboard" class="hover:text-red-500 transition duration-300">Dashboard</a>
+                    <form method="POST" action="{% url 'logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="hover:text-red-500 transition duration-300 bg-transparent border-none p-0">Logout</button>
+                    </form>
+                {% else %}
+                    <!-- <a href="{% url 'login' %}" class="hover:text-red-500 transition duration-300">Login</a>
+                    <a href="/signup" class="hover:text-red-500 transition duration-300">Signup</a> -->
+
+                {% endif %}
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-black absolute top-16 left-0 w-full">
+            <div class="flex flex-col space-y-4 p-4">
+                <a href="/" class="hover:text-red-500 transition duration-300">Home</a>
+                <a href="/about" class="hover:text-red-500 transition duration-300">About Us</a>
+                <a href="/register" class="hover:text-red-500 transition duration-300">Register</a>
+                <!-- <a href="/collaboration" class="hover:text-red-500 transition duration-300">Collaboration</a> -->
+                <a href="/contact" class="hover:text-red-500 transition duration-300">Contact</a>
+                {% if user.is_authenticated %}
+                    <a href="/dashboard" class="hover:text-red-500 transition duration-300">Dashboard</a>
+                    <form method="POST" action="{% url 'logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="hover:text-red-500 transition duration-300 bg-transparent border-none p-0">Logout</button>
+                    </form>
+                {% else %}
+                    <!-- <a href="{% url 'login' %}" class="hover:text-red-500 transition duration-300">Login</a>
+                    <a href="/signup" class="hover:text-red-500 transition duration-300">Signup</a> -->
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main class="min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="bg-black text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <a href="/" class="text-2xl font-bold flex items-center">
+                            <img src="{% static 'images/cognito_logo.svg' %}" alt="Cognito Club Logo" id="cognito_main_logo" class="h-8 w-8 mr-2">
+                            The Cognito Club
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-300">Empowering minds through collaboration and innovation.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/about" class="hover:text-red-500">About Us</a></li>
+                        <li><a href="/collaboration" class="hover:text-red-500">Collaboration</a></li>
+                        <li><a href="/contact" class="hover:text-red-500">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="{% url 'privacy_policy' %}" class="hover:text-red-500">Privacy Policy</a></li>
+                        <li><a href="{% url 'terms_of_service' %}" class="hover:text-red-500">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://x.com/thecognitoclub" class="text-2xl hover:text-red-500 flex items-center">
+                            <i class="bi bi-twitter-x">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                                </svg>
+                            </i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/the-cognito-club/" class="text-2xl hover:text-red-500"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://www.instagram.com/thecognitoclub/" class="text-2xl hover:text-red-500"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-sm text-gray-300">© 2025 The Cognito Club. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+<script>
+particlesJS('particles-js', {
+    particles: {
+        number: { value: 80 },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        line_linked: {
+            enable: true,
+            distance: 150,
+            color: '#ffffff',
+            opacity: 0.4,
+            width: 1
+        },
+        move: {
+            enable: true,
+            speed: 2
+        }
+    }
+});
+</script>
+</html>

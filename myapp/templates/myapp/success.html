@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration Successful - The Cognito Club{% endblock %}
+
+{% block content %}
+    <section class="bg-gradient-to-r from-gray-900 to-black text-white py-12 md:py-16">
+        <div class="container mx-auto text-center px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Registration Successful!</h1>
+            <p class="text-lg md:text-xl">Welcome to The Cognito Club</p>
+        </div>
+    </section>
+
+    <section class="min-h-[calc(100vh)] bg-gray-900">
+        <div class="container mx-auto px-4 max-w-md text-center py-12">
+            <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Thank you for joining us</h2>
+                <p class="text-gray-300 mb-8">
+                    Your registration has been successfully processed. We're excited to have you as part of our community.
+                </p>
+                <a href="https://chat.whatsapp.com/L4MFPFZvkbZ2HhrlB9nRYX" 
+                    class="border-2 border-white text-white py-3 px-8 rounded-full font-semibold hover:bg-white hover:text-black transition duration-300 text-lg mb-4 inline-block">
+                    Whatsapp Community
+                </a>
+                <a href="{% url 'home' %}" 
+                    class="border-2 border-white text-white py-3 px-8 rounded-full font-semibold hover:bg-white hover:text-black transition duration-300 text-lg mb-4 inline-block">
+                    Go to Home Page
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
