@@ -1,4 +1,5 @@
 pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
 python manage.py collectstatic --noinput
 chmod +w db.sqlite3
-# python manage.py makemigrations
