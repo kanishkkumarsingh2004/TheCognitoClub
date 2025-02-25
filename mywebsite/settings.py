@@ -14,15 +14,13 @@ import os
 import psycopg2
 import dotenv
 from pathlib import Path
-from dotenv import load_dotenv
-
-
-# Load environment variables from .env file
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -31,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,21 +77,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mywebsite.wsgi.app'
 
-# dotenv_file = os.path.join(BASE_DIR, ".env")
-# if os.path.isfile(dotenv_file):
-#     dotenv.load_dotenv(dotenv_file)
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # or 'django.db.backends.mysql'
-        'NAME': os.getenv('NAME'),
-        'USER':"postgres.vndnlqofmrataowjlzil" ,
-        'PASSWORD': "Kanishk2004@123",
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
+        'ENGINE': os.environ['ENGINE'],
+        'HOST': os.environ['HOST'],
+        'NAME': os.environ['NAME'],
+        'USER': "postgres.vndnlqofmrataowjlzil",
+        'PASSWORD': os.environ['PASSWORD'],
+        'PORT': os.environ['PORT'],
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
