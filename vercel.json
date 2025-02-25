@@ -19,8 +19,8 @@
       "dest": "mywebsite/wsgi.py"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "src": "/staticfiles/(.*)",
+      "dest": "/staticfiles/$1"
     }
   ]
 }
