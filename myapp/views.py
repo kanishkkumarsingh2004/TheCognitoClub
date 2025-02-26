@@ -152,10 +152,6 @@ def register(request):
                 # Check if USN or email already exists
                 if Registration.objects.filter(usn=form.cleaned_data['usn']).exists():
                     messages.error(request, 'This USN is already registered.')
-                # elif Registration.objects.filter(email=form.cleaned_data['email']).exists():
-                #     messages.error(request, 'This email is already registered.')
-                #     return redirect('register')
-                
                 # Create and save Registration instance
                 registration = Registration(
                     full_name=form.cleaned_data['full_name'],
@@ -164,8 +160,8 @@ def register(request):
                     email=form.cleaned_data['email'],
                     mobile_number=form.cleaned_data['mobile_number'],
                     domains=', '.join(form.cleaned_data['domains']),  
-                    # superpower=', '.join(form.cleaned_data['superpower']),
-                    # excites=', '.join(form.cleaned_data['excites']), 
+                    superpower=', '.join(form.cleaned_data['superpower']),
+                    interests=', '.join(form.cleaned_data['interests']), 
                     about_yourself=form.cleaned_data['about_yourself'],
                 )
                 registration.save()

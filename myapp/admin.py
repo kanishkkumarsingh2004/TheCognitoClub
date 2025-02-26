@@ -41,7 +41,7 @@ def export_to_csv(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename="registrations.csv"'
     
     writer = csv.writer(response)
-    writer.writerow(['Full Name', 'USN', 'Branch', 'Email', 'Mobile Number', 'Domains', 'About Yourself', 'Created At'])
+    writer.writerow(['Full Name', 'USN', 'Branch', 'Email', 'Mobile Number', 'Domains', 'About Yourself', 'Created At', 'Intrest', 'Superpower'])
     
     for obj in queryset:
         writer.writerow([
@@ -52,7 +52,9 @@ def export_to_csv(modeladmin, request, queryset):
             obj.mobile_number,
             obj.domains,
             obj.about_yourself,
-            obj.created_at
+            obj.created_at,
+            obj.intrest,
+            obj.superpower,
         ])
     
     return response
@@ -60,5 +62,5 @@ export_to_csv.short_description = "Export selected registrations to CSV"
 
 @admin.register(Registration)
 class RegistrationAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'usn', 'branch', 'email', 'mobile_number','domains','about_yourself', 'created_at')
+    list_display = ('full_name', 'usn', 'branch', 'email', 'mobile_number', 'created_at')
     actions = [export_to_csv]

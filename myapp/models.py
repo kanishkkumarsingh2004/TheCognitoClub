@@ -31,8 +31,8 @@ class Registration(models.Model):
     mobile_number = models.CharField(max_length=10)
     domains = models.CharField(max_length=200)
     about_yourself = models.CharField(max_length=50)
-    superpower = models.CharField(max_length=500)
-    interests = models.CharField(max_length=500)
+    superpower = models.CharField(max_length=500000)
+    interests = models.CharField(max_length=500000)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
