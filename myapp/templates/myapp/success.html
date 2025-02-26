@@ -10,21 +10,31 @@
         </div>
     </section>
 
-    <section class="min-h-[calc(100vh)] bg-gray-900">
-        <div class="container mx-auto px-4 max-w-md text-center py-12">
-            <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Thank you for joining us</h2>
-                <p class="text-gray-300 mb-8">
+    <section class="min-h-[calc(100vh)] bg-gradient-to-b from-gray-900 to-black relative">
+        <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+        <div class="container mx-auto px-4 max-w-md text-center py-12 relative z-10">
+            <div class="bg-gray-900/90 backdrop-blur-sm p-8 rounded-lg shadow-lg border border-gray-800 transform transition-all duration-500 hover:scale-105">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                    Thank you for joining us
+                </h2>
+                <p class="text-gray-300 mb-8 text-lg leading-relaxed">
                     Your registration has been successfully processed. We're excited to have you as part of our community.
                 </p>
-                <a href="https://chat.whatsapp.com/L4MFPFZvkbZ2HhrlB9nRYX" 
-                    class="border-2 border-white text-white py-3 px-8 rounded-full font-semibold hover:bg-white hover:text-black transition duration-300 text-lg mb-4 inline-block">
-                    Whatsapp Community
-                </a>
-                <a href="{% url 'home' %}" 
-                    class="border-2 border-white text-white py-3 px-8 rounded-full font-semibold hover:bg-white hover:text-black transition duration-300 text-lg mb-4 inline-block">
-                    Go to Home Page
-                </a>
+                <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                    We will inform you about the next steps. Best of luck!
+                </p>
+                <div class="space-y-4">
+                    <a href="https://chat.whatsapp.com/L4MFPFZvkbZ2HhrlB9nRYX" 
+                        class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-8 rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 text-lg inline-flex items-center justify-center space-x-2">
+                        <i class="bi bi-whatsapp text-xl"></i>
+                        <span>Join WhatsApp Community</span>
+                    </a>
+                    <a href="{% url 'home' %}" 
+                        class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 px-8 rounded-full font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 text-lg inline-flex items-center justify-center space-x-2">
+                        <i class="bi bi-house-door text-xl"></i>
+                        <span>Go to Home Page</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
