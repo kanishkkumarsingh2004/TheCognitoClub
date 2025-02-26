@@ -49,7 +49,7 @@
 
                         <input type="text" id="full_name" name="full_name" 
                             class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
-                            >
+                            required>
                     </div>
                 
                     <!-- USN -->
@@ -57,7 +57,7 @@
                         <label for="usn" class="block text-gray-300 mb-2">USN  (No, we won’t use it to take attendance… or will we? 🤔)</label>
                         <input type="text" id="usn" name="usn" 
                             class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
-                            >
+                            required>
                         <small class="text-gray-500 text-sm">Your USN must be unique</small>
                     </div>
                 
@@ -68,7 +68,7 @@
 
                         <input type="text" id="branch" name="branch" 
                             class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
-                            >
+                            required>
                     </div>
                 
                     <!-- Email -->
@@ -76,7 +76,7 @@
                         <label for="email" class="block text-gray-300 mb-2">Drop your email (No spam, promise! 💌)</label>
                         <input type="email" id="email" name="email" 
                             class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
-                            >
+                            required>
                     </div>
                 
                     <!-- Mobile Number -->
@@ -86,9 +86,8 @@
 
                         <input type="tel" id="mobile_number" name="mobile_number" 
                             class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
-                            pattern="[0-9]{10}" >
+                            pattern="[0-9]{10}" required>
                     </div>
-                
                     <!-- Domains (Checkboxes) -->
                     <div>
                         <label class="block text-gray-300 mb-2">Preferred Domains:</label>
@@ -114,7 +113,7 @@
                                 <span class="text-gray-300">Social Media</span>
                             </label>
                             <label class="flex items-center space-x-2"></label>
-                                <input type="checkbox" name="domains" value="outreach_and_marketing" 
+                                <input type="checkbox" name="domains" value="Outreach_and_Marketing"
                                     class="form-checkbox h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-800 bg-gray-800">
                                 <span class="text-gray-300">Outreach and Marketing</span>
                             </label>
