@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function initializeCountdown() {
-    // Set the date we're counting down to (YYYY-MM-DD format)
     const countDownDate = new Date("2025-03-03T23:59:59").getTime();
+    const registrationForm = document.getElementById("registration-form");
 
     const updateTimer = () => {
         const now = new Date().getTime();
@@ -23,6 +23,9 @@ function initializeCountdown() {
         if (distance < 0) {
             clearInterval(timerInterval);
             document.getElementById("countdown-timer").innerHTML = "Registrations Closed!";
+            if (registrationForm) {
+                registrationForm.style.display = "none";
+            }
             return;
         }
 
@@ -37,10 +40,8 @@ function initializeCountdown() {
         document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
     };
 
-    // Update the count down every 1 second
     const timerInterval = setInterval(updateTimer, 1000);
     updateTimer(); // Initial call
 }
 
-// Initialize the timer when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializeCountdown);
