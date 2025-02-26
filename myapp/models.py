@@ -37,3 +37,13 @@ class Registration(models.Model):
 
     def __str__(self):
         return self.full_name
+    
+
+class RegistrationSettings(models.Model):
+    registration_deadline = models.DateTimeField()
+    
+    def __str__(self):
+        return f"Registration Settings (Deadline: {self.registration_deadline})"
+    
+    class Meta:
+        verbose_name_plural = "Registration Settings"

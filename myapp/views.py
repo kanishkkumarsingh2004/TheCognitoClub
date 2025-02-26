@@ -8,8 +8,9 @@ from django.contrib import messages
 from django.utils import timezone
 from django import forms
 from dotenv import load_dotenv
-from .models import Event, UserProfile, Registration
+from .models import Event, UserProfile, Registration, RegistrationSettings
 from .forms import RegistrationForm, CustomLoginForm
+from django.http import JsonResponse
 import os
 load_dotenv()
 def custom_login(request):
@@ -184,3 +185,21 @@ def home(request):
         'upcoming_events': upcoming_events
     }
     return render(request, 'myapp/home.html', context)
+
+
+
+
+
+
+
+
+def get_registration_deadline(request):
+    try:
+        settings = RegistrationSettings.objects.first()
+        if settings:
+            return JsonResponse({
+                'deadline': settings.registration_deadline.isoformat()
+            })
+        return JsonResponse({'error': 'No deadline set'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

@@ -14,4 +14,6 @@ urlpatterns = [
     path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
     path('register/', views.register, name='register'),
     path('success/', views.success, name='success'),
+    path('get-registration-deadline/', views.get_registration_deadline, name='get-registration-deadline'),
+
 ]

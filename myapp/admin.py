@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Event, UserProfile
+from .models import Event, UserProfile, RegistrationSettings
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
@@ -64,3 +64,9 @@ export_to_csv.short_description = "Export selected registrations to CSV"
 class RegistrationAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'usn', 'branch', 'email', 'mobile_number', 'created_at')
     actions = [export_to_csv]
+
+
+
+@admin.register(RegistrationSettings)
+class RegistrationSettingsAdmin(admin.ModelAdmin):
+    list_display = ('registration_deadline',)
