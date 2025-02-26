@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}The Cognito Club{% endblock %}</title>
-    <link rel="icon" type="image/svg+png" href="{% static 'images/cognito_logo.svg' %}">
+    <link rel="icon" type="image/svg+png" href="{% static 'images/cognito_logo.png' %}">
     <link rel="stylesheet" href="{% static 'myapp/css/style.css' %}">
     <script src="{% static 'myapp/js/script.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
@@ -99,9 +99,11 @@
                     <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
                     <div class="flex space-x-4">
                         <a href="https://x.com/thecognitoclub" class="text-2xl hover:text-red-500 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-                            </svg>
+                            <i class="bi bi-twitter-x">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                                </svg>
+                            </i>
                         </a>
                         <a href="https://www.linkedin.com/company/the-cognito-club/" class="text-2xl hover:text-red-500"><i class="bi bi-linkedin"></i></a>
                         <a href="https://www.instagram.com/thecognitoclub/" class="text-2xl hover:text-red-500"><i class="bi bi-instagram"></i></a>

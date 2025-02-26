@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Event, UserProfile, Registration
+from .models import Event, UserProfile
+
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'venue', 'created_at')
@@ -40,7 +41,7 @@ def export_to_csv(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename="registrations.csv"'
     
     writer = csv.writer(response)
-    writer.writerow(['Full Name', 'USN', 'Branch', 'Email', 'Mobile Number', 'Domains', 'About Yourself','superpower','interests', 'Created At'])
+    writer.writerow(['Full Name', 'USN', 'Branch', 'Email', 'Mobile Number', 'Domains', 'About Yourself', 'Created At'])
     
     for obj in queryset:
         writer.writerow([
@@ -51,13 +52,12 @@ def export_to_csv(modeladmin, request, queryset):
             obj.mobile_number,
             obj.domains,
             obj.about_yourself,
-            obj.superpower,
-            obj.interests,
             obj.created_at
         ])
     
     return response
 export_to_csv.short_description = "Export selected registrations to CSV"
+
 @admin.register(Registration)
 class RegistrationAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'usn', 'branch', 'email', 'mobile_number','domains','about_yourself', 'created_at')
