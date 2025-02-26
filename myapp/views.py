@@ -144,16 +144,17 @@ def dashboard_view(request):
         'upcoming_events': upcoming_events
     }
     return render(request, 'myapp/dashboard.html', context)
-
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             try:
-                # Check if USN already exists
+                # Check if USN or email already exists
                 if Registration.objects.filter(usn=form.cleaned_data['usn']).exists():
                     messages.error(request, 'This USN is already registered.')
-                    return redirect('register')
+                # elif Registration.objects.filter(email=form.cleaned_data['email']).exists():
+                #     messages.error(request, 'This email is already registered.')
+                #     return redirect('register')
                 
                 # Create and save Registration instance
                 registration = Registration(
@@ -162,7 +163,9 @@ def register(request):
                     branch=form.cleaned_data['branch'],
                     email=form.cleaned_data['email'],
                     mobile_number=form.cleaned_data['mobile_number'],
-                    domains=', '.join(form.cleaned_data['domains']),  # Convert list to string
+                    domains=', '.join(form.cleaned_data['domains']),  
+                    # superpower=', '.join(form.cleaned_data['superpower']),
+                    # excites=', '.join(form.cleaned_data['excites']), 
                     about_yourself=form.cleaned_data['about_yourself'],
                 )
                 registration.save()
