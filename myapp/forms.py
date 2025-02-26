@@ -27,20 +27,19 @@ class RegistrationForm(forms.Form):
         widget=forms.CheckboxSelectMultiple
     )
     interests = forms.MultipleChoiceField(
-        choices=[
-            ('ai_ml', 'ai_ml'),
-            ('devops_cloud', 'devops_cloud'),
-            ('cybersecurity', 'cybersecurity'),
-            ('theweb_app_dev_fixer', 'theweb_app_dev_fixer'),
-            ('data_science', 'data_science'),
-            ('competitive_coding', 'competitive_coding'),
-            ('event_management', 'event_management'),
-            ('content_creation', 'content_creation'),
-            ('graphic_design', 'graphic_design'),
-            ('other', 'other'),
-
-        ],
-        widget=forms.CheckboxSelectMultiple
+    choices=[
+        ('ai_ml', 'AI & ML'),
+        ('devops_cloud', 'DevOps & Cloud'),
+        ('cybersecurity', 'Cybersecurity'),
+        ('web_app_dev', 'Web/App Dev'),
+        ('data_science', 'Data Science'),
+        ('competitive_coding', 'Competitive Coding'),
+        ('event_management', 'Event Management'),
+        ('content_creation', 'Content Creation'),
+        ('graphic_design', 'Graphic Design'),
+        ('other', 'Other'),
+    ],
+    widget=forms.CheckboxSelectMultiple
     )
     about_yourself = forms.CharField(max_length=5000000)
 
