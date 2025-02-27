@@ -3,7 +3,7 @@ class RegistrationForm(forms.Form):
     full_name = forms.CharField(max_length=100)
     usn = forms.CharField(max_length=10, min_length=10)
     branch = forms.CharField(max_length=50)
-    email = forms.EmailField()
+    email = forms.CharField()
     mobile_number = forms.CharField(max_length=10, min_length=10)
     domains = forms.MultipleChoiceField(
         choices=[
