@@ -53,7 +53,7 @@ def export_to_csv(modeladmin, request, queryset):
             obj.domains,
             # obj.about_yourself,
             obj.created_at,
-            obj.intrest,
+            obj.interest,
             obj.superpower,
         ])
     
