@@ -26,7 +26,7 @@ async function initializeCountdown() {
             return;
         }
 
-        const countDownDate = new Date(data.deadline).getTime();
+        const countDownDate = convertUTCToIST(data.deadline).getTime();
         const registrationForm = document.getElementById("registration-form");
 
         const updateTimer = () => {
