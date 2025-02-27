@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Event, UserProfile, RegistrationSettings
+from .models import Event, UserProfile, RegistrationSettings, Registration
+from django.http import HttpResponse
+import csv
+
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
@@ -32,9 +35,6 @@ admin.site.register(User, CustomUserAdmin)
 
 
 
-import csv
-from django.http import HttpResponse
-from .models import Registration
 
 def export_to_csv(modeladmin, request, queryset):
     response = HttpResponse(content_type='text/csv')
