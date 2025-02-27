@@ -10,7 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
+function convertUTCToIST(utcDateString) {
+    const utcDate = new Date(utcDateString);
+    const istOffset = 330; const countDownDate = convertUTCToIST(data.deadline).getTime();// IST is UTC+5:30
+    return new Date(utcDate.getTime() + istOffset * 60000);
+}
 
 async function initializeCountdown() {
     try {
@@ -22,7 +26,7 @@ async function initializeCountdown() {
             return;
         }
 
-        const countDownDate = new Date(data.deadline).getTime();
+        const countDownDate = convertUTCToIST(data.deadline).getTime();
         const registrationForm = document.getElementById("registration-form");
 
         const updateTimer = () => {

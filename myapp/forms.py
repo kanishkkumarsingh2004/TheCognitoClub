@@ -50,3 +50,4 @@ class CustomLoginForm(forms.Form):
         strip=False,
         widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'}),
     )
+
