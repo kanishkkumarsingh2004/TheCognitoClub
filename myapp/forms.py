@@ -41,7 +41,7 @@ class RegistrationForm(forms.Form):
     ],
     widget=forms.CheckboxSelectMultiple
     )
-    about_yourself = forms.CharField(max_length=5000000)
+    about_yourself = forms.CharField()
 
 
 class CustomLoginForm(forms.Form):
