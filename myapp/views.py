@@ -150,9 +150,6 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             try:
-                # Check if USN or email already exists
-                if Registration.objects.filter(usn=form.cleaned_data['usn']).exists():
-                    messages.error(request, 'This USN is already registered.')
                 # Create and save Registration instance
                 registration = Registration(
                     full_name=form.cleaned_data['full_name'],
