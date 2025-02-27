@@ -24,13 +24,12 @@ class UserProfile(models.Model):
         return f"{self.user.get_full_name()} ({self.mobile})"
 
 class Registration(models.Model):
-    full_name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100000)
     usn = models.CharField(max_length=20)
     branch = models.CharField(max_length=50)
     email = models.EmailField()
     mobile_number = models.CharField(max_length=10)
-    domains = models.CharField(max_length=200)
-    # about_yourself = models.CharField(max_length=50)
+    domains = models.CharField(max_length=2000)
     superpower = models.CharField(max_length=500000)
     interests = models.CharField(max_length=500000)
     created_at = models.DateTimeField(auto_now_add=True)
