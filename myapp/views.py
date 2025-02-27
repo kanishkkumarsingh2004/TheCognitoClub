@@ -160,7 +160,7 @@ def register(request):
                     domains=', '.join(form.cleaned_data['domains']),  
                     superpower=', '.join(form.cleaned_data['superpower']),
                     interests=', '.join(form.cleaned_data['interests']), 
-                    about_yourself=form.cleaned_data['about_yourself'],
+                    # about_yourself=form.cleaned_data['about_yourself'],
                 )
                 registration.save()
                 messages.success(request, 'Registration successful!')

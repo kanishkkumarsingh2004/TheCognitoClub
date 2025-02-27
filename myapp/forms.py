@@ -41,7 +41,7 @@ class RegistrationForm(forms.Form):
     ],
     widget=forms.CheckboxSelectMultiple
     )
-    about_yourself = forms.CharField()
+    # about_yourself = forms.CharField(widget=forms.Textarea)
 
 
 class CustomLoginForm(forms.Form):

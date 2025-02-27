@@ -51,7 +51,7 @@ def export_to_csv(modeladmin, request, queryset):
             obj.email,
             obj.mobile_number,
             obj.domains,
-            obj.about_yourself,
+            # obj.about_yourself,
             obj.created_at,
             obj.intrest,
             obj.superpower,
