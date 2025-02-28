@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard - The Cognito Club{% endblock %}
+
+{% block content %}
+    <!-- Leaderboard Header -->
+    <section class="bg-gradient-to-r from-gray-900 to-black text-white py-12 md:py-16">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Leaderboard</h1>
+            <p class="text-lg md:text-xl">Track your progress and compete with others</p>
+        </div>
+    </section>
+
+    <!-- Leaderboard Content -->
+    <section class="min-h-screen bg-black text-white">
+        <div class="hero-particles absolute inset-0 z-0" id="parscoreticles-js"></div>
+        <div class="container mx-auto px-4 py-12 md:py-16">
+            <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold text-white mb-6">Coming Soon...</h2>
+                <p class="text-gray-400 mb-8">We're working on an exciting leaderboard feature. Stay tuned!</p>
+                
+                <!-- Table Structure -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-gray-800 rounded-lg">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Rank</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Points</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Right Probability</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Attempts</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700">
+                            <tr class="hover:bg-gray-700 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-300">1</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-300">2</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                            </tr>
+                            <tr class="hover:bg-gray-700 transition-colors duration-200">
+                                <td class="px-6 py-4 text-gray-300">3</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                                <td class="px-6 py-4 text-gray-300">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -15,5 +15,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('success/', views.success, name='success'),
     path('get-registration-deadline/', views.get_registration_deadline, name='get-registration-deadline'),
+    path('resources/', views.resources, name='resources'),
+    path('leaderboard/', (views.leaderboard_view), name='leaderboard'),
+    path('challenges/', views.challenges_view, name='challenges'),
 
 ]

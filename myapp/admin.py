@@ -41,7 +41,7 @@ def export_to_csv(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename="registrations.csv"'
     
     writer = csv.writer(response)
-    writer.writerow(['Full Name', 'USN', 'Branch', 'Email', 'Mobile Number', 'Domains', 'About Yourself', 'Created At', 'Intrest', 'Superpower'])
+    writer.writerow(['Full Name', 'USN', 'Branch', 'Email', 'Mobile Number', 'Domains', 'Created At', 'Intrest', 'Superpower'])
     
     for obj in queryset:
         writer.writerow([
@@ -52,7 +52,7 @@ def export_to_csv(modeladmin, request, queryset):
             obj.mobile_number,
             obj.domains,
             obj.created_at,
-            obj.interest,
+            obj.interests,
             obj.superpower,
         ])
     
