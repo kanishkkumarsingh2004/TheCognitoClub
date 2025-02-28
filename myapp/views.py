@@ -56,7 +56,9 @@ class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({'autofocus': True})
-
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
 def home(request):
     return render(request, 'myapp/home.html')
 
@@ -68,15 +70,21 @@ def collaboration(request):
 
 def about(request):
     return render(request, 'myapp/about.html')
+
 @login_required
 def resources(request):
     return render(request, 'myapp/resources.html')
+
 @login_required
 def leaderboard_view(request):
     return render(request, 'myapp/leaderboard.html')
+
 @login_required
 def challenges_view(request):
     return render(request, 'myapp/challenges.html')
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------
 @login_required
 def dashboard(request):
     user = request.user
