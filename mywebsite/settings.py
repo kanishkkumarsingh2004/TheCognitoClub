@@ -35,7 +35,6 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,44 +142,4 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL')  # Replace with your email
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Use environment variables for securit
-
-
-JAZZMIN_SETTINGS = {
-    # General settings
-    "site_title": "The Cognito Club Admin",
-    "site_header": "The Cognito Club",
-    "site_brand": "The Cognito Club",
-    "site_logo": "images/cognito_logo_dark.svg",
-    "welcome_sign": "Welcome to The Cognito Club Admin Panel",
-    "copyright": "The Cognito Club",
-    
-    # UI Customization
-    "show_ui_builder": True,
-    "changeform_format": "horizontal_tabs",
-    "related_modal_active": True,
-    "custom_css": None,
-    "custom_js": None,
-    
-    # Menu Customization
-    "navigation_expanded": True,
-    "hide_apps": [],
-    "hide_models": [],
-    
-    # Icons
-    "icons": {
-        "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
-    },
-    
-    # Theme
-    "theme": "dark",
-    
-    # Misc
-    "use_google_fonts_cdn": True,
-    "show_sidebar": True,
-    "show_ui_builder": True,
-    "default_icon_parents": "fas fa-chevron-circle-right",
-    "default_icon_children": "fas fa-circle",
-}
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Use environment variables for security
