@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Bad Request - The Cognito Club{% endblock %}
+
+{% block content %}
+<section class="min-h-screen bg-black text-white relative">
+    <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+    <div class="container mx-auto px-4 py-24 text-center relative z-10">
+        <div class="max-w-2xl mx-auto">
+            <h1 class="text-6xl md:text-8xl font-extrabold text-red-500 mb-6">400</h1>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Bad Request</h2>
+            <p class="text-lg text-gray-300 mb-8">
+                Your browser sent a request that this server could not understand.
+                Please check your input and try again.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="/" class="bg-red-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-red-600 transition duration-300">
+                    Return to Homepage
+                </a>
+                <a href="/contact" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition duration-300">
+                    Get Help
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
