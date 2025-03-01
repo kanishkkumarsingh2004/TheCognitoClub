@@ -75,6 +75,7 @@ export_to_csv.short_description = "Export selected registrations to CSV"
 @admin.register(Registration)
 class RegistrationAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'usn', 'branch', 'email', 'mobile_number', 'created_at')
+    search_fields = ('full_name', 'usn', 'branch', 'email', 'mobile_number')
     actions = [export_to_csv]
 
 @admin.register(RegistrationSettings)
