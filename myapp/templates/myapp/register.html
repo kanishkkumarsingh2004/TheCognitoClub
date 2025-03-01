@@ -22,13 +22,25 @@
     <!-- Register Form -->
     <section class="py-12 md:py-16 bg-gradient-to-r from-gray-900 to-black relative" id="registration-form">
         <!-- Countdown Timer -->
-        <div class="clock-display mb-8 p-6 bg-gray-800/90 backdrop-blur-sm rounded-xl shadow-lg border border-gray-700 mx-auto max-w-md">
-            <h3 class="text-white font-bold text-lg mb-4 text-center">⏳ Registration Deadline</h3>
-            <div id="countdown-timer" class="text-white text-center font-mono space-x-2">
-                <span class="bg-gray-700 px-3 py-1.5 rounded-md hover:bg-gray-600 transition-colors" id="days">00</span>d
-                <span class="bg-gray-700 px-3 py-1.5 rounded-md hover:bg-gray-600 transition-colors" id="hours">00</span>h
-                <span class="bg-gray-700 px-3 py-1.5 rounded-md hover:bg-gray-600 transition-colors" id="minutes">00</span>m
-                <span class="bg-gray-700 px-3 py-1.5 rounded-md hover:bg-gray-600 transition-colors" id="seconds">00</span>s
+        <div class="clock-display mb-8 p-8 bg-gray-900/90 backdrop-blur-sm rounded-2xl shadow-2xl border-2 border-indigo-500/20 mx-auto max-w-md hover:border-indigo-500/40 transition-all duration-300">
+            <h3 class="text-white font-bold text-xl mb-6 text-center tracking-wider">⏳ REGISTRATION DEADLINE ⏳</h3>
+            <div id="countdown-timer" class="text-white text-center font-mono flex justify-center space-x-3">
+                <div class="flex flex-col items-center">
+                    <span class="bg-indigo-700/90 px-4 py-2 rounded-lg text-2xl font-bold hover:bg-indigo-800/90 transition-colors" id="days">00</span>
+                    <span class="text-sm text-gray-400 mt-1">DAYS</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="bg-indigo-700/90 px-4 py-2 rounded-lg text-2xl font-bold hover:bg-indigo-800/90 transition-colors" id="hours">00</span>
+                    <span class="text-sm text-gray-400 mt-1">HOURS</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="bg-indigo-700/90 px-4 py-2 rounded-lg text-2xl font-bold hover:bg-indigo-800/90 transition-colors" id="minutes">00</span>
+                    <span class="text-sm text-gray-400 mt-1">MINUTES</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="bg-indigo-700/90 px-4 py-2 rounded-lg text-2xl font-bold hover:bg-indigo-800/90 transition-colors" id="seconds">00</span>
+                    <span class="text-sm text-gray-400 mt-1">SECONDS</span>
+                </div>
             </div>
         </div>
         <div class="container mx-auto px-4 max-w-md relative z-10">
@@ -73,7 +85,7 @@
                     <!-- USN -->
                     <div>
                         <label for="usn" class="block text-gray-300 mb-2">USN  (No, we won’t use it to take attendance… or will we? 🤔)</label>
-                        <input type="text" id="usn" name="usn" 
+                        <input type="text id="usn" name="usn" 
                             class="w-full p-3 border border-gray-800 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-800 text-white placeholder-gray-500"
                             required>
                         <small class="text-gray-500 text-sm">Your USN must be unique</small>
