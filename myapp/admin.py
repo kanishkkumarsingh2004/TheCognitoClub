@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Event, UserProfile, RegistrationSettings, Registration, Challenge
+from .models import Event, UserProfile, RegistrationSettings, Registration, Challenge, ChallengeParticipation
 from django.http import HttpResponse
 import csv
 from django_ckeditor_5.widgets import CKEditor5Widget
@@ -18,6 +18,14 @@ class UserProfileInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'User Profiles'
     fields = ('mobile','usn')
+
+
+class UserChallengeParticipationInline(admin.TabularInline):
+    model = ChallengeParticipation
+    extra = 0
+    raw_id_fields = ('challenge',)
+    readonly_fields = ('usn', 'mobile', 'start_date')
+
 
 class CustomUserAdmin(UserAdmin):
     inlines = (UserProfileInline,)
@@ -80,12 +88,21 @@ class ChallengeForm(forms.ModelForm):
         model = Challenge
         fields = '__all__'
 
+
+class ChallengeParticipationInline(admin.TabularInline):
+    model = ChallengeParticipation
+    extra = 0
+    raw_id_fields = ('user',)
+    readonly_fields = ('usn', 'mobile', 'start_date')
+
+
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
     form = ChallengeForm
     list_display = ('title', 'points', 'start_date', 'end_date')
     search_fields = ('title', 'description')
     list_filter = ('start_date', 'end_date')
+    inlines = [ChallengeParticipationInline]
     fieldsets = (
         (None, {
             'fields': ('title', 'description', 'points')
@@ -98,3 +115,18 @@ class ChallengeAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+@admin.register(ChallengeParticipation)
+class ChallengeParticipationAdmin(admin.ModelAdmin):
+    list_display = ('usn', 'get_full_name', 'user', 'mobile', 'challenge', 'start_date')
+    list_filter = ('challenge', 'start_date')
+    search_fields = ('user__username', 'usn', 'mobile', 'user__first_name', 'user__last_name')
+    raw_id_fields = ('user', 'challenge')
+    date_hierarchy = 'start_date'
+
+    def get_full_name(self, obj):
+        return f"{obj.user.first_name} {obj.user.last_name}"
+    get_full_name.short_description = 'Full Name'
+    get_full_name.admin_order_field = 'user__first_name'
+
+
