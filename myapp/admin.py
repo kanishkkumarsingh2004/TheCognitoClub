@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Event, UserProfile, RegistrationSettings, Registration
+from .models import Event, UserProfile, RegistrationSettings, Registration, Challenge
 from django.http import HttpResponse
 import csv
 
@@ -15,11 +15,11 @@ class UserProfileInline(admin.StackedInline):
     model = UserProfile
     can_delete = False
     verbose_name_plural = 'User Profiles'
-    fields = ('mobile',)
+    fields = ('mobile','usn')
 
 class CustomUserAdmin(UserAdmin):
     inlines = (UserProfileInline,)
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'get_mobile')
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'get_mobile', 'get_usn')  # Add 'get_usn'
     list_select_related = ('userprofile',)
 
     def get_mobile(self, obj):
@@ -27,6 +27,12 @@ class CustomUserAdmin(UserAdmin):
             return obj.userprofile.mobile
         return 'N/A'
     get_mobile.short_description = 'Mobile'
+
+    def get_usn(self, obj):  # Add this method
+        if hasattr(obj, 'userprofile'):
+            return obj.userprofile.usn
+        return 'N/A'
+    get_usn.short_description = 'USN'  # Set column header
 
 # Unregister the default User admin
 admin.site.unregister(User)
@@ -69,3 +75,22 @@ class RegistrationAdmin(admin.ModelAdmin):
 @admin.register(RegistrationSettings)
 class RegistrationSettingsAdmin(admin.ModelAdmin):
     list_display = ('registration_deadline',)
+
+
+@admin.register(Challenge)
+class ChallengeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'points', 'start_date', 'end_date')
+    search_fields = ('title', 'description')
+    list_filter = ('start_date', 'end_date')
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description', 'points')
+        }),
+        ('Dates', {
+            'fields': ('start_date', 'end_date')
+        }),
+        ('Details', {
+            'fields': ('technology_stack', 'requirements'),
+            'classes': ('collapse',)
+        }),
+    )   

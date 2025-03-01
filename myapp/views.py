@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -8,10 +8,12 @@ from django.contrib import messages
 from django.utils import timezone
 from django import forms
 from dotenv import load_dotenv
-from .models import Event, UserProfile, Registration, RegistrationSettings
+from .models import Event, UserProfile, Registration, RegistrationSettings, Challenge, ChallengeParticipation
 from .forms import RegistrationForm, CustomLoginForm
 from django.http import JsonResponse
 import os
+from django.db import IntegrityError
+
 load_dotenv()
 def custom_login(request):
     if request.method == 'POST':
@@ -36,10 +38,11 @@ class CustomUserCreationForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True)
     email = forms.EmailField(required=True)
     mobile = forms.CharField(max_length=15, required=True)
+    usn = forms.CharField(max_length=20, required=True)
     
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'mobile')
+        fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'mobile', 'usn')
     
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -52,6 +55,12 @@ class CustomUserCreationForm(UserCreationForm):
         if UserProfile.objects.filter(mobile=mobile).exists():
             raise forms.ValidationError("This mobile number is already registered.")
         return mobile
+       
+    def clean_usn(self):
+        usn = self.cleaned_data.get('usn')
+        if UserProfile.objects.filter(usn=usn).exists():
+            raise forms.ValidationError("This USN is already registered.")
+        return usn
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -94,14 +103,16 @@ def dashboard(request):
             'first_name': user.first_name,
             'last_name': user.last_name,
             'email': user.email,
-            'mobile': user_profile.mobile,  
+            'mobile': user_profile.mobile,
+            'usn': user_profile.usn,  
         }
     except UserProfile.DoesNotExist:
         context = {
             'first_name': user.first_name,
             'last_name': user.last_name,
             'email': user.email,
-            'mobile': 'N/A', 
+            'mobile': 'N/A',
+            'usn': 'N/A',
         }
     return render(request, 'myapp/dashboard.html', context)
 
@@ -117,7 +128,10 @@ def signup(request):
                 user.email = form.cleaned_data['email']
                 user.save()
 
-                UserProfile.objects.create(user=user, mobile=form.cleaned_data['mobile'])
+                UserProfile.objects.create(user=user,
+                                            mobile=form.cleaned_data['mobile'],
+                                            usn=form.cleaned_data['usn']
+                                        )
                 login(request, user)
                 return redirect('dashboard')
             except Exception as e:
@@ -202,8 +216,13 @@ def home(request):
 
 
 
+def challenges_view(request):
+    challenges = Challenge.objects.filter(end_date__gte=timezone.now())
+    return render(request, 'myapp/challenges.html', {'challenges': challenges})
 
-
+def challenge_detail_view(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    return render(request, 'myapp/challenge_detail.html', {'challenge': challenge})
 
 def get_registration_deadline(request):
     try:
@@ -215,3 +234,28 @@ def get_registration_deadline(request):
         return JsonResponse({'error': 'No deadline set'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+@login_required
+def join_challenge(request, challenge_id):
+    if request.method == 'POST':
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        user = request.user
+        
+        try:
+            user_profile = UserProfile.objects.get(user=user)
+            
+            ChallengeParticipation.objects.create(
+                user=user,
+                challenge=challenge,
+                usn=user_profile.usn,
+                mobile=user_profile.mobile
+            )
+            messages.success(request, 'Successfully joined the challenge!')
+        except UserProfile.DoesNotExist:
+            messages.error(request, 'User profile not found. Please complete your profile.')
+        except IntegrityError:
+            messages.warning(request, 'You have already joined this challenge.')
+        except Exception as e:
+            messages.error(request, f'Error joining challenge: {str(e)}')
+        
+        return redirect('challenge_detail', challenge_id=challenge_id)

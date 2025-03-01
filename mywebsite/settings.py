@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
-import psycopg2
 import dotenv
 from pathlib import Path
 
@@ -35,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,3 +143,14 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL')  # Replace with your email
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Use environment variables for security
+
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "The Cognito Club",
+    "site_header": "The Cognito Club",
+    "site_brand": "The Cognito Club",
+    "site_logo": "images/cognito_logo_dark.svg",
+    "welcome_sign": "Welcome to The Cognito Club Admin Panel",
+    "copyright": "The Cognito Club",
+}

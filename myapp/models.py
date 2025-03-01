@@ -19,9 +19,15 @@ class Event(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     mobile = models.CharField(max_length=15, unique=True)
+    usn = models.CharField(max_length=20, unique=True)  
     
     def __str__(self):
         return f"{self.user.get_full_name()} ({self.mobile})"
+    
+    def save(self, *args, **kwargs):
+        # Ensure USN is stored in uppercase
+        self.usn = self.usn.upper()
+        super().save(*args, **kwargs)
 
 class Registration(models.Model):
     full_name = models.CharField(max_length=100000)
@@ -37,6 +43,11 @@ class Registration(models.Model):
     def __str__(self):
         return self.full_name
     
+    def save(self, *args, **kwargs):
+        # Ensure USN is stored in uppercase
+        self.usn = self.usn.upper()
+        super().save(*args, **kwargs)
+    
 
 class RegistrationSettings(models.Model):
     registration_deadline = models.DateTimeField()
@@ -46,3 +57,42 @@ class RegistrationSettings(models.Model):
     
     class Meta:
         verbose_name_plural = "Registration Settings"
+
+
+
+class Challenge(models.Model):
+    title = models.CharField(max_length=20000)
+    description = models.TextField()
+    points = models.PositiveIntegerField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    technology_stack = models.CharField(max_length=200, blank=True)
+    requirements = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-created_at']
+
+
+
+class ChallengeParticipation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
+    usn = models.CharField(max_length=20)
+    mobile = models.CharField(max_length=15)
+    start_date = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'challenge')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.challenge.title}"
+    
+    def save(self, *args, **kwargs):
+        # Ensure USN is stored in uppercase
+        self.usn = self.usn.upper()
+        super().save(*args, **kwargs)

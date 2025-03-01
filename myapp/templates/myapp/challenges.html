@@ -15,34 +15,59 @@
     <section class="min-h-screen bg-black text-white">
         <div class="hero-particles absolute inset-0 z-0" id="parscoreticles-js"></div>
         <div class="container mx-auto px-4 py-12 md:py-16">
-            <div class="bg-gray-900 p-8 rounded-lg shadow-lg text-center">
-                <h2 class="text-3xl font-bold text-white mb-6">Coming Soon...</h2>
-                <p class="text-gray-400 mb-8">We're preparing exciting challenges for you. Stay tuned!</p>
-                
-                <!-- Placeholder Grid -->
+            <div class="bg-gray-900 p-8 rounded-lg shadow-lg">
+                <!-- Challenges List -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Challenge Card 1 -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                        <div class="text-gray-400 text-2xl mb-4">🏆</div>
-                        <h3 class="text-xl font-semibold text-white mb-2">Beginner Challenge</h3>
-                        <p class="text-gray-400">Coming soon</p>
-                    </div>
-
-                    <!-- Challenge Card 2 -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                        <div class="text-gray-400 text-2xl mb-4">🚀</div>
-                        <h3 class="text-xl font-semibold text-white mb-2">Intermediate Challenge</h3>
-                        <p class="text-gray-400">Coming soon</p>
-                    </div>
-
-                    <!-- Challenge Card 3 -->
-                    <div class="bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                        <div class="text-gray-400 text-2xl mb-4">💡</div>
-                        <h3 class="text-xl font-semibold text-white mb-2">Advanced Challenge</h3>
-                        <p class="text-gray-400">Coming soon</p>
-                    </div>
+                    {% if challenges %}
+                        {% for challenge in challenges %}
+                
+                        <div class="bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 rounded-lg shadow-lg hover:shadow-xl transition-all duration-500 ease-in-out transform hover:-translate-y-2 hover:scale-105 relative border border-gray-600/50">
+                            <div class="absolute top-4 right-4 bg-gradient-to-r from-green-600 to-green-700 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md transition-transform duration-500 hover:scale-110">
+                                {{ challenge.points }} Points
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-gray-300 text-2xl w-8">{{ forloop.counter }}.</div>
+                                    <h3 class="text-xl font-semibold text-white">{{ challenge.title }}</h3>
+                                </div>
+                                <p class="text-gray-300 text-base mb-6">
+                                    {{ challenge.description }}
+                                </p>
+                                <div class="flex space-x-4 text-sm text-gray-300 mb-6">
+                                    <div class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span>Start: {{ challenge.start_date|date:"M d, Y" }}</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <span>End: {{ challenge.end_date|date:"M d, Y" }}</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between space-x-4">
+                                    <a href="{% url 'challenge_detail' challenge.id %}" class="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-2 rounded-lg hover:from-indigo-700 hover:to-indigo-800 transition-all duration-500 ease-in-out transform hover:scale-105 text-center shadow-md">
+                                        View Details
+                                    </a>
+                                    <form method="POST" action="{% url 'join_challenge' challenge.id %}" class="flex-1">
+                                        {% csrf_token %}
+                                        <button type="submit" class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-2 rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-500 ease-in-out transform hover:scale-105 text-center shadow-md">
+                                            Join Challenge
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-span-full text-center py-12">
+                            <h3 class="text-2xl font-semibold text-gray-300 mb-4">No Challenges Available</h3>
+                            <p class="text-gray-400">New challenges are coming soon!</p>
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
         </div>
     </section>
 {% endblock %}
