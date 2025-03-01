@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myapp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),  # Override to allow GET
+    path('accounts/logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
 ]

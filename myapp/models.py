@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser, User
-
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
@@ -62,12 +62,12 @@ class RegistrationSettings(models.Model):
 
 class Challenge(models.Model):
     title = models.CharField(max_length=20000)
-    description = models.TextField()
+    description = CKEditor5Field('Description', config_name='default')
     points = models.PositiveIntegerField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    technology_stack = models.CharField(max_length=200, blank=True)
-    requirements = models.TextField(blank=True)
+    technology_stack = CKEditor5Field('Technology Stack', config_name='default', blank=True)
+    requirements = CKEditor5Field('Requirements', config_name='default', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -90,7 +90,34 @@ def leaderboard_view(request):
 
 @login_required
 def challenges_view(request):
-    return render(request, 'myapp/challenges.html')
+    # Get active challenges (not ended yet)
+    active_challenges = Challenge.objects.filter(end_date__gte=timezone.now())
+    
+    return render(request, 'myapp/challenges.html', {
+        'challenges': active_challenges
+    })
+
+def join_challenge(request, challenge_id):
+    if request.method == 'POST':
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        user = request.user
+        
+        try:
+            user_profile = UserProfile.objects.get(user=user)
+            
+            ChallengeParticipation.objects.create(
+                user=user,
+                challenge=challenge,
+                usn=user_profile.usn,
+                mobile=user_profile.mobile
+            )
+            return redirect('challenge_join_success')
+        except UserProfile.DoesNotExist:
+            messages.error(request, "User profile not found. Please complete your profile.")
+            return redirect('dashboard')
+
+def challenge_join_success(request):
+    return render(request, 'myapp/challenge_join_success.html')
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------
@@ -250,7 +277,7 @@ def join_challenge(request, challenge_id):
                 usn=user_profile.usn,
                 mobile=user_profile.mobile
             )
-            messages.success(request, 'Successfully joined the challenge!')
+            return redirect('challenge_join_success')
         except UserProfile.DoesNotExist:
             messages.error(request, 'User profile not found. Please complete your profile.')
         except IntegrityError:
@@ -259,3 +286,18 @@ def join_challenge(request, challenge_id):
             messages.error(request, f'Error joining challenge: {str(e)}')
         
         return redirect('challenge_detail', challenge_id=challenge_id)
+
+def challenge_detail_view(request, challenge_id):
+    challenge = get_object_or_404(Challenge, id=challenge_id)
+    has_joined = False
+    
+    if request.user.is_authenticated:
+        has_joined = ChallengeParticipation.objects.filter(
+            user=request.user,
+            challenge=challenge
+        ).exists()
+    
+    return render(request, 'myapp/challenge_detail.html', {
+        'challenge': challenge,
+        'has_joined': has_joined
+    })

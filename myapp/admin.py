@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from .models import Event, UserProfile, RegistrationSettings, Registration, Challenge
 from django.http import HttpResponse
 import csv
+from django_ckeditor_5.widgets import CKEditor5Widget
+from django import forms
 
 
 @admin.register(Event)
@@ -39,9 +41,6 @@ admin.site.unregister(User)
 # Register the User model with the custom UserAdmin
 admin.site.register(User, CustomUserAdmin)
 
-
-
-
 def export_to_csv(modeladmin, request, queryset):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="registrations.csv"'
@@ -70,15 +69,20 @@ class RegistrationAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'usn', 'branch', 'email', 'mobile_number', 'created_at')
     actions = [export_to_csv]
 
-
-
 @admin.register(RegistrationSettings)
 class RegistrationSettingsAdmin(admin.ModelAdmin):
     list_display = ('registration_deadline',)
 
+class ChallengeForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditor5Widget(config_name='default'))
+    
+    class Meta:
+        model = Challenge
+        fields = '__all__'
 
 @admin.register(Challenge)
 class ChallengeAdmin(admin.ModelAdmin):
+    form = ChallengeForm
     list_display = ('title', 'points', 'start_date', 'end_date')
     search_fields = ('title', 'description')
     list_filter = ('start_date', 'end_date')
@@ -93,4 +97,4 @@ class ChallengeAdmin(admin.ModelAdmin):
             'fields': ('technology_stack', 'requirements'),
             'classes': ('collapse',)
         }),
-    )   
+    )

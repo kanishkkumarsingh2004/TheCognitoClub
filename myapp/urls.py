@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
-from .views import join_challenge
+from .views import join_challenge, challenge_join_success
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -21,5 +21,6 @@ urlpatterns = [
     path('challenges/', views.challenges_view, name='challenges'),
     path('challenges/<int:challenge_id>/', views.challenge_detail_view, name='challenge_detail'),
     path('challenge/join/<int:challenge_id>/', join_challenge, name='join_challenge'),
+    path('challenge/join/success/', challenge_join_success, name='challenge_join_success'),
 
 ]
