@@ -23,6 +23,16 @@
                         {{ challenge.points }} Points
                     </div>
                 </div>
+                {% if has_joined %}
+                <div id="joined-message" class="bg-blue-900/50 border border-blue-800 text-blue-200 px-4 py-3 rounded mb-4">
+                    <p class="font-semibold">You have already joined this challenge!</p>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        document.getElementById('joined-message').style.display = 'none';
+                    }, 3000);
+                </script>
+                {% endif %}
 
                 <!-- Challenge Details -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
