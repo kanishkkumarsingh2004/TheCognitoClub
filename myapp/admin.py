@@ -146,10 +146,14 @@ class ChallengeParticipationAdmin(admin.ModelAdmin):
             user_profile.points += obj.challenge.points
             user_profile.save()
 
-            
 @admin.register(UserProfile)
 class UserAchievedPointsAdmin(admin.ModelAdmin):
-    list_display = ('user', 'usn', 'mobile', 'points')  # Display points in list view
+    list_display = ('get_full_name', 'usn', 'mobile', 'points')  # Display full name instead of user
     list_editable = ('points',)  # Make points editable directly in list view
-    search_fields = ('user__username', 'usn', 'mobile')  # Add search functionality
+    search_fields = ('user__username', 'usn', 'mobile', 'user__first_name', 'user__last_name')  # Add search functionality
     # list_filter = ('points',)  # Add filter by points
+
+    def get_full_name(self, obj):
+        return f"{obj.user.first_name} {obj.user.last_name}"
+    get_full_name.short_description = 'Full Name'
+    get_full_name.admin_order_field = 'user__first_name'
