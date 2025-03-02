@@ -17,18 +17,15 @@ from django.db import IntegrityError
 load_dotenv()
 def custom_login(request):
     if request.method == 'POST':
-        form = CustomLoginForm(request.POST)
+        form = CustomLoginForm(request, data=request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=email, password=password)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect('dashboard')
-            else:
-                messages.error(request, "Invalid email or password.")
-        else:
-            messages.error(request, "Invalid form submission.")
+        messages.error(request, "Invalid username or password.")
     else:
         form = CustomLoginForm()
     return render(request, 'registration/login.html', {'form': form})
@@ -65,18 +62,49 @@ class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({'autofocus': True})
-
+# ---------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
 def home(request):
-    return render(request, 'myapp/home.html')
+    upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('date')[:3]
+    context = {
+        'upcoming_events': upcoming_events
+    }
+    return render(request, 'myapp/home.html', context)
+
 
 def contact(request):
-    return render(request, 'myapp/contact.html')
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        if name and email and message:
+            send_mail(
+                subject=f"New Contact Message from {name}",
+                message=f"Name: {name}\n\nEmail: {email}\n\n\n\nMessage: {message}",
+                from_email=email,
+                recipient_list=[os.getenv('EMAIL')],
+                fail_silently=False,
+            )
+            messages.success(request, "Your message has been sent successfully!")
+            return redirect("contact")
+
+    return render(request, "myapp/contact.html")
 
 def collaboration(request):
     return render(request, 'myapp/collaboration.html')
 
 def about(request):
     return render(request, 'myapp/about.html')
+
+# ---------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+
+
 
 @login_required
 def resources(request):
@@ -85,7 +113,7 @@ def resources(request):
 @login_required
 def leaderboard_view(request):
     # Get all user profiles ordered by points
-    leaderboard = UserProfile.objects.select_related('user').order_by('-points')[:100]
+    leaderboard = UserProfile.objects.select_related('user').order_by('-points')[:10]
     
     # Add rank to each user
     ranked_leaderboard = []
@@ -93,8 +121,7 @@ def leaderboard_view(request):
         ranked_leaderboard.append({
             'rank': rank,
             'user': profile.user,
-            'points': profile.points,
-            'usn': profile.usn
+            'points': profile.points
         })
     
     return render(request, 'myapp/leaderboard.html', {
@@ -177,24 +204,7 @@ def signup(request):
         form = CustomUserCreationForm()
     return render(request, 'myapp/signup.html', {'form': form})
 
-def contact(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        message = request.POST.get("message")
 
-        if name and email and message:
-            send_mail(
-                subject=f"New Contact Message from {name}",
-                message=f"Name: {name}\n\nEmail: {email}\n\n\n\nMessage: {message}",
-                from_email=email,
-                recipient_list=[os.getenv('EMAIL')],
-                fail_silently=False,
-            )
-            messages.success(request, "Your message has been sent successfully!")
-            return redirect("contact")
-
-    return render(request, "myapp/contact.html")
 
 def terms_of_service(request):
     return render(request, 'myapp/terms_of_service.html')
@@ -238,12 +248,6 @@ def register(request):
 def success(request):
     return render(request, 'myapp/success.html')
 
-def home(request):
-    upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('date')[:3]
-    context = {
-        'upcoming_events': upcoming_events
-    }
-    return render(request, 'myapp/home.html', context)
 
 def challenges_view(request):
     challenges = Challenge.objects.filter(end_date__gte=timezone.now())

@@ -22,7 +22,6 @@
                             <tr class="bg-gray-700">
                                 <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Rank</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">USN</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Points</th>
                             </tr>
                         </thead>
@@ -36,7 +35,6 @@
                                     {% else %}{{ entry.rank }}{% endif %}
                                 </td>
                                 <td class="px-6 py-4 text-gray-300 text-center">{{ entry.user.get_full_name }}</td>
-                                <td class="px-6 py-4 text-gray-300 text-center">{{ entry.usn }}</td>
                                 <td class="px-6 py-4 text-gray-300 text-center">{{ entry.points }}</td>
                             </tr>
                             {% endfor %}

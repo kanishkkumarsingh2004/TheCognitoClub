@@ -1,4 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+
+
 class RegistrationForm(forms.Form):
     full_name = forms.CharField(max_length=100000)
     usn = forms.CharField(max_length=10, min_length=10)
@@ -43,10 +46,10 @@ class RegistrationForm(forms.Form):
     )
 
 
-class CustomLoginForm(forms.Form):
-    email = forms.EmailField(required=True)
-    password = forms.CharField(
-        strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'}),
-    )
 
+
+class CustomLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username']
+        self.fields['password']
