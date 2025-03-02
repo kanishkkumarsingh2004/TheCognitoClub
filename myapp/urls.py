@@ -22,5 +22,6 @@ urlpatterns = [
     path('challenges/<int:challenge_id>/', views.challenge_detail_view, name='challenge_detail'),
     path('challenge/join/<int:challenge_id>/', join_challenge, name='join_challenge'),
     path('challenge/join/success/', challenge_join_success, name='challenge_join_success'),
+    path('challenge/submit/<int:challenge_id>/', views.submit_challenge, name='submit_challenge'),
 
 ]

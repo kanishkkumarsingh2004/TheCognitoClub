@@ -31,7 +31,7 @@
                                     <h3 class="text-xl font-semibold text-white">{{ challenge.title }}</h3>
                                 </div>
                                 <div class="prose prose-invert text-gray-300 mb-6">
-                                    {{ challenge.description|safe }}
+                                    {{ challenge.description|safe|truncatechars:30 }}
                                 </div>
                                 <div class="flex space-x-4 text-sm text-gray-300 mb-6">
                                     <div class="flex items-center">

@@ -19,7 +19,8 @@ class Event(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     mobile = models.CharField(max_length=15, unique=True)
-    usn = models.CharField(max_length=20, unique=True)  
+    usn = models.CharField(max_length=20, unique=True) 
+    points = models.PositiveIntegerField(default=0) 
     
     def __str__(self):
         return f"{self.user.get_full_name()} ({self.mobile})"
@@ -77,7 +78,6 @@ class Challenge(models.Model):
         ordering = ['-created_at']
 
 
-
 class ChallengeParticipation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     challenge = models.ForeignKey(Challenge, on_delete=models.CASCADE)
@@ -85,6 +85,19 @@ class ChallengeParticipation(models.Model):
     mobile = models.CharField(max_length=15)
     start_date = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    submission_url = models.URLField(blank=True, null=True)
+    submission_status = models.CharField(
+        max_length=20,
+        choices=[
+            ('pending', 'Pending'),
+            ('submitted', 'Submitted'),
+            ('reviewed', 'Reviewed'),
+            ('approved', 'Approved'),
+            ('rejected', 'Rejected')
+        ],
+        default='pending'
+    )
+    review_notes = models.TextField(blank=True, null=True)
 
     class Meta:
         unique_together = ('user', 'challenge')

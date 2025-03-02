@@ -13,25 +13,61 @@
 
     <!-- Challenge Content -->
     <section class="min-h-screen bg-black text-white">
-        <div class="hero-particles absolute inset-0 z-0" id="parscoreticles-js"></div>
         <div class="container mx-auto px-4 py-12 md:py-16">
             <div class="bg-gray-900 p-8 rounded-lg shadow-lg">
                 <!-- Challenge Title and Points -->
                 <div class="flex items-center justify-between mb-8">
                     <h2 class="text-3xl font-bold text-white">{{ challenge.title }}</h2>
-                    <div class="bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md">
+                    <div class="bg-gradient-to-r from-green-6 to-green-700 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md">
                         {{ challenge.points }} Points
                     </div>
                 </div>
+
+                <!-- Participation Status Section -->
                 {% if has_joined %}
-                <div id="joined-message" class="bg-blue-900/50 border border-blue-800 text-blue-200 px-4 py-3 rounded mb-4">
-                    <p class="font-semibold">You have already joined this challenge!</p>
+                <div class="bg-blue-900/50 border border-blue-800 text-blue-200 px-4 py-3 rounded mb-4">
+                    <div class="flex items-center justify-between">
+                        <p class="font-semibold">You have joined this challenge!</p>
+                        {% if submission_status %}
+                        <span class="text-sm bg-blue-800/50 px-2 py-1 rounded">Status: {{ submission_status }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    {% if not submission_url %}
+                    <form method="POST" action="{% url 'submit_challenge' challenge.id %}" class="mt-3">
+                        {% csrf_token %}
+                        <div class="flex flex-col space-y-3">
+                            <input type="url" name="submission_url"
+                                   class="w-full p-2 rounded bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-blue-500"
+                                   placeholder="Enter your project submission URL" required>
+                            <button type="submit"
+                                    class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors duration-200">
+                                Submit Project
+                            </button>
+                        </div>
+                    </form>
+                    {% endif %}
+
+                    {% if submission_status or review_notes or submission_url %}
+                    <div class="mt-3 space-y-2">
+                        {% if submission_url %}
+                        <div class="flex items-center space-x-2">
+                            <span class="text-blue-300">Submission:</span>
+                            <a href="{{ submission_url }}" class="text-blue-400 hover:text-blue-300 underline" target="_blank">
+                                View Project
+                            </a>
+                        </div>
+                        {% endif %}
+                        
+                        {% if review_notes %}
+                        <div class="bg-gray-800/50 p-3 rounded">
+                            <h4 class="font-semibold text-blue-200 mb-1">Review Feedback</h4>
+                            <p class="text-blue-100">{{ review_notes }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </div>
-                <script>
-                    setTimeout(function() {
-                        document.getElementById('joined-message').style.display = 'none';
-                    }, 3000);
-                </script>
                 {% endif %}
 
                 <!-- Challenge Details -->
@@ -42,26 +78,31 @@
                         <div class="prose prose-invert text-gray-300 mb-6">
                             {{ challenge.description|safe }}
                         </div>
-                        {% if challenge.requirements %}
-                        <div class="prose prose-invert text-gray-300">
-                            {{ challenge.requirements|safe }}
-                        </div>
-                        {% endif %}
                     </div>
 
                     <!-- Requirements Section -->
                     <div>
-                        <h3 class="text-xl font-semibold text-white mb-4">Details</h3>
+                        <h3 class="text-xl font-semibold text-white mb-4">Requirements & Details</h3>
                         <div class="space-y-4">
+                            {% if challenge.requirements %}
+                            <div class="bg-gray-8 p-4 rounded-lg">
+                                <h4 class="font-semibold text-white mb-2">Requirements</h4>
+                                <div class="prose prose-invert text-gray-300">
+                                    {{ challenge.requirements|safe }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            
                             {% if challenge.technology_stack %}
-                            <div class="bg-gray-800 p-4 rounded-lg">
+                            <div class="bg-gray-8 p-4 rounded-lg">
                                 <h4 class="font-semibold text-white mb-2">Technology Stack</h4>
                                 <div class="prose prose-invert text-gray-300">
                                     {{ challenge.technology_stack|safe }}
                                 </div>
                             </div>
                             {% endif %}
-                            <div class="bg-gray-800 p-4 rounded-lg">
+                            
+                            <div class="bg-gray-8 p-4 rounded-lg">
                                 <h4 class="font-semibold text-white mb-2">Timeline</h4>
                                 <div class="prose prose-invert text-gray-300">
                                     <p class="block">Start: {{ challenge.start_date|date:"M d, Y" }}</p>
@@ -73,6 +114,7 @@
                 </div>
 
                 <!-- Call to Action -->
+                {% if not has_joined %}
                 <div class="mt-8 pt-8 border-t border-gray-700">
                     <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                         <div class="text-gray-300">
@@ -81,12 +123,13 @@
                         </div>
                         <form method="POST" action="{% url 'join_challenge' challenge.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-3 rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-500 ease-in-out transform hover:scale-105 text-center shadow-md">
+                            <button type="submit" class="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition-all duration-500 ease-in-out transform hover:scale-105 text-center shadow-md">
                                 Accept Challenge
                             </button>
                         </form>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>

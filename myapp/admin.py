@@ -29,7 +29,7 @@ class UserChallengeParticipationInline(admin.TabularInline):
 
 class CustomUserAdmin(UserAdmin):
     inlines = (UserProfileInline,)
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'get_mobile', 'get_usn')  # Add 'get_usn'
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff', 'get_mobile', 'get_usn') 
     list_select_related = ('userprofile',)
 
     def get_mobile(self, obj):
@@ -116,18 +116,32 @@ class ChallengeAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
-
 @admin.register(ChallengeParticipation)
 class ChallengeParticipationAdmin(admin.ModelAdmin):
-    list_display = ('usn', 'get_full_name', 'user', 'mobile', 'challenge', 'start_date')
-    list_filter = ('challenge', 'start_date')
+    list_display = ('usn', 'get_full_name', 'user', 'mobile', 'challenge', 'submission_url', 'submission_status', 'review_notes', 'start_date')
+    list_filter = ('challenge', 'start_date', 'submission_status')
     search_fields = ('user__username', 'usn', 'mobile', 'user__first_name', 'user__last_name')
     raw_id_fields = ('user', 'challenge')
     date_hierarchy = 'start_date'
+    list_editable = ('submission_status', 'review_notes')
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'challenge', 'usn', 'mobile')
+        }),
+        ('Submission Details', {
+            'fields': ('submission_url', 'submission_status', 'review_notes')
+        }),
+    )
 
     def get_full_name(self, obj):
         return f"{obj.user.first_name} {obj.user.last_name}"
     get_full_name.short_description = 'Full Name'
     get_full_name.admin_order_field = 'user__first_name'
 
-
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if obj.submission_status == 'approved':
+            # Update user points when submission is approved
+            user_profile = UserProfile.objects.get(user=obj.user)
+            user_profile.points += obj.challenge.points
+            user_profile.save()

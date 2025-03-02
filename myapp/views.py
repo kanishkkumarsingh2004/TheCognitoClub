@@ -65,9 +65,7 @@ class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({'autofocus': True})
-# --------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------
+
 def home(request):
     return render(request, 'myapp/home.html')
 
@@ -86,17 +84,29 @@ def resources(request):
 
 @login_required
 def leaderboard_view(request):
-    return render(request, 'myapp/leaderboard.html')
+    # Get all user profiles ordered by points
+    leaderboard = UserProfile.objects.select_related('user').order_by('-points')[:100]
+    
+    # Add rank to each user
+    ranked_leaderboard = []
+    for rank, profile in enumerate(leaderboard, start=1):
+        ranked_leaderboard.append({
+            'rank': rank,
+            'user': profile.user,
+            'points': profile.points,
+            'usn': profile.usn
+        })
+    
+    return render(request, 'myapp/leaderboard.html', {
+        'leaderboard': ranked_leaderboard
+    })
 
 @login_required
 def challenges_view(request):
-    # Get active challenges (not ended yet)
     active_challenges = Challenge.objects.filter(end_date__gte=timezone.now())
-    
-    return render(request, 'myapp/challenges.html', {
-        'challenges': active_challenges
-    })
+    return render(request, 'myapp/challenges.html', {'challenges': active_challenges})
 
+@login_required
 def join_challenge(request, challenge_id):
     if request.method == 'POST':
         challenge = get_object_or_404(Challenge, id=challenge_id)
@@ -104,7 +114,6 @@ def join_challenge(request, challenge_id):
         
         try:
             user_profile = UserProfile.objects.get(user=user)
-            
             ChallengeParticipation.objects.create(
                 user=user,
                 challenge=challenge,
@@ -118,9 +127,7 @@ def join_challenge(request, challenge_id):
 
 def challenge_join_success(request):
     return render(request, 'myapp/challenge_join_success.html')
-# --------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------
+
 @login_required
 def dashboard(request):
     user = request.user
@@ -189,7 +196,6 @@ def contact(request):
 
     return render(request, "myapp/contact.html")
 
-
 def terms_of_service(request):
     return render(request, 'myapp/terms_of_service.html')
 
@@ -202,12 +208,12 @@ def dashboard_view(request):
         'upcoming_events': upcoming_events
     }
     return render(request, 'myapp/dashboard.html', context)
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
             try:
-                # Create and save Registration instance
                 registration = Registration(
                     full_name=form.cleaned_data['full_name'],
                     usn=form.cleaned_data['usn'],
@@ -220,18 +226,18 @@ def register(request):
                 )
                 registration.save()
                 messages.success(request, 'Registration successful!')
-                return redirect('success')  # Redirect to success page
+                return redirect('success')
             except Exception as e:
                 messages.error(request, f'Error saving registration: {str(e)}')
         else:
             messages.error(request, 'Invalid form submission. Please check your input.')
     else:
         form = RegistrationForm()
-    
     return render(request, 'myapp/register.html', {'form': form})
 
 def success(request):
     return render(request, 'myapp/success.html')
+
 def home(request):
     upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('date')[:3]
     context = {
@@ -239,17 +245,56 @@ def home(request):
     }
     return render(request, 'myapp/home.html', context)
 
-
-
-
-
 def challenges_view(request):
     challenges = Challenge.objects.filter(end_date__gte=timezone.now())
     return render(request, 'myapp/challenges.html', {'challenges': challenges})
 
+@login_required
+def submit_challenge(request, challenge_id):
+    if request.method == 'POST':
+        challenge = get_object_or_404(Challenge, id=challenge_id)
+        participation = get_object_or_404(
+            ChallengeParticipation,
+            user=request.user,
+            challenge=challenge
+        )
+        submission_url = request.POST.get('submission_url')
+        if submission_url:
+            participation.submission_url = submission_url
+            participation.submission_status = 'submitted'
+            participation.save()
+            messages.success(request, 'Your submission has been recorded!')
+        else:
+            messages.error(request, 'Please provide a valid submission URL')
+    return redirect('challenge_detail', challenge_id=challenge_id)
+
 def challenge_detail_view(request, challenge_id):
     challenge = get_object_or_404(Challenge, id=challenge_id)
-    return render(request, 'myapp/challenge_detail.html', {'challenge': challenge})
+    has_joined = False
+    submission_status = None
+    review_notes = None
+    submission_url = None
+    points = challenge.points if challenge else 0
+    
+    if request.user.is_authenticated:
+        participation = ChallengeParticipation.objects.filter(
+            user=request.user,
+            challenge=challenge
+        ).first()
+        if participation:
+            has_joined = True
+            submission_status = participation.get_submission_status_display()
+            review_notes = participation.review_notes
+            submission_url = participation.submission_url
+    
+    return render(request, 'myapp/challenge_detail.html', {
+        'challenge': challenge,
+        'has_joined': has_joined,
+        'submission_status': submission_status,
+        'review_notes': review_notes,
+        'submission_url': submission_url,
+        'points': points
+    })
 
 def get_registration_deadline(request):
     try:
@@ -286,18 +331,3 @@ def join_challenge(request, challenge_id):
             messages.error(request, f'Error joining challenge: {str(e)}')
         
         return redirect('challenge_detail', challenge_id=challenge_id)
-
-def challenge_detail_view(request, challenge_id):
-    challenge = get_object_or_404(Challenge, id=challenge_id)
-    has_joined = False
-    
-    if request.user.is_authenticated:
-        has_joined = ChallengeParticipation.objects.filter(
-            user=request.user,
-            challenge=challenge
-        ).exists()
-    
-    return render(request, 'myapp/challenge_detail.html', {
-        'challenge': challenge,
-        'has_joined': has_joined
-    })
