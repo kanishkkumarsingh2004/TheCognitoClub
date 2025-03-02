@@ -4,47 +4,62 @@
 {% block title %}Collaboration - The Cognito Club{% endblock %}
 
 {% block content %}
-    <section class="bg-black text-white py-12 md:py-16">
+    <section class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white relative overflow-hidden">
+        <!-- Particle background -->
         <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
 
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 py-16 relative z-10">
             <!-- Header -->
-            <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Collaborate With Us</h1>
-                <p class="text-lg md:text-xl mb-6 text-gray-300">Partner with The Cognito Club to create, innovate, and inspire.</p>
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">Collaborate With Us</h1>
+                <p class="text-lg md:text-xl mb-6 text-gray-300 max-w-2xl mx-auto">Partner with The Cognito Club to create, innovate, and inspire.</p>
             </div>
 
             <!-- Intro Section -->
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Why Collaborate?</h2>
-                <p class="text-gray-300 max-w-2xl mx-auto">We're always eager to work with like-minded individuals, clubs, and organizations. Whether it's hosting events, building projects, or sharing ideas, collaboration is at the heart of what we do.</p>
+                <p class="text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed">We're always eager to work with like-minded individuals, clubs, and organizations. Whether it's hosting events, building projects, or sharing ideas, collaboration is at the heart of what we do.</p>
             </div>
 
             <!-- Collaboration Opportunities -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-3">Event Partnerships</h3>
-                    <p class="text-gray-300">Team up with us to organize workshops, hackathons, or guest lectures that benefit our community.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-indigo-500/50 transition-all duration-300">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
+                        Event Partnerships
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">Team up with us to organize workshops, hackathons, or guest lectures that benefit our community.</p>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-3">Project Collaborations</h3>
-                    <p class="text-gray-300">Work together on innovative projects—tech, art, or anything in between—to showcase creativity.</p>
+                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-purple-500/50 transition-all duration-300">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                        Project Collaborations
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">Work together on innovative projects—tech, art, or anything in between—to showcase creativity.</p>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-3">Sponsorships</h3>
-                    <p class="text-gray-300">Support our initiatives and gain visibility among students and faculty.</p>
+                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-pink-500/50 transition-all duration-300">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-pink-500 rounded-full"></span>
+                        Sponsorships
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">Support our initiatives and gain visibility among students and faculty.</p>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-3">Club Alliances</h3>
-                    <p class="text-gray-300">Join forces with other clubs for cross-disciplinary events and activities.</p>
+                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-blue-500/50 transition-all duration-300">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                        Club Alliances
+                    </h3>
+                    <p class="text-gray-300 leading-relaxed">Join forces with other clubs for cross-disciplinary events and activities.</p>
                 </div>
             </div>
 
             <!-- Call to Action -->
-            <div class="text-center">
+            <div class="text-center mt-16">
                 <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Partner?</h2>
-                <p class="text-gray-300 mb-6">Let's make something amazing together. Reach out to discuss possibilities!</p>
-                <a href="/contact" class="bg-white text-black py-3 px-8 rounded-full font-semibold hover:bg-gray-100 transition duration-300">Contact Us</a>
+                <p class="text-gray-300 mb-8 text-lg max-w-2xl mx-auto">Let's make something amazing together. Reach out to discuss possibilities!</p>
+                <a href="/contact" class="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    Contact Us
+                </a>
             </div>
         </div>
     </section>
