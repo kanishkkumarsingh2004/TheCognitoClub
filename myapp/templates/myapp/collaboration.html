@@ -4,60 +4,102 @@
 {% block title %}Collaboration - The Cognito Club{% endblock %}
 
 {% block content %}
-    <section class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white relative overflow-hidden">
-        <!-- Particle background -->
+    <section class="bg-black text-white relative min-h-screen">
+        <!-- Particle Background -->
         <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
 
-        <div class="container mx-auto px-4 py-16 relative z-10">
+        <div class="container mx-auto px-4 py-12 md:py-16 relative z-10">
             <!-- Header -->
-            <div class="text-center mb-16">
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">Collaborate With Us</h1>
-                <p class="text-lg md:text-xl mb-6 text-gray-300 max-w-2xl mx-auto">Partner with The Cognito Club to create, innovate, and inspire.</p>
+            <div class="text-center mb-12 md:mb-16">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text">Collaborate With Us</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Partner with The Cognito Club to create, innovate, and inspire.</p>
             </div>
 
-            <!-- Intro Section -->
-            <div class="text-center mb-16">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Why Collaborate?</h2>
-                <p class="text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed">We're always eager to work with like-minded individuals, clubs, and organizations. Whether it's hosting events, building projects, or sharing ideas, collaboration is at the heart of what we do.</p>
+            <!-- Who We Are (Intro Section) -->
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-6 text-center">Who We Are</h2>
+                <div class="bg-gray-900/80 p-6 md:p-8 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                    <p class="text-base md:text-lg text-gray-200 leading-relaxed text-justify">
+                        The Cognito Club at JAIN (Deemed-to-be-University), Bangalore, is a powerhouse of innovation, creativity, and technology. We are a dynamic student-led community passionate about AI, ML, and emerging technologies. Through cutting-edge events, hands-on workshops, and groundbreaking projects, we empower students to push boundaries and shape the future of technology. Our goal is to bridge the gap between academia and industry, providing students with the tools, knowledge, and exposure needed to excel in an ever-evolving tech landscape. Join us in revolutionizing the future of tech through collaboration, learning, and innovation!
+                    </p>
+                </div>
             </div>
 
-            <!-- Collaboration Opportunities -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-indigo-500/50 transition-all duration-300">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
-                        Event Partnerships
-                    </h3>
-                    <p class="text-gray-300 leading-relaxed">Team up with us to organize workshops, hackathons, or guest lectures that benefit our community.</p>
+            <!-- Why Partner with Us -->
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-6 text-center">Why Partner with Us?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Access a Thriving Community</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Engage with over 2,000 students, tech enthusiasts and future leaders eager to explore new ideas and opportunities.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Boost Your Brand Visibility</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Gain exposure through our large-scale events and online presence, showcasing your brand to students, academicians, and tech leaders.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Drive Innovation & Growth</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Collaborate on high-impact projects with our creative and analytical student community to push technological boundaries.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Forge Industry-Academia Connections</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Bridge education and industry with access to motivated students and researchers for knowledge exchange and talent acquisition.
+                        </p>
+                    </div>
                 </div>
-                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-purple-500/50 transition-all duration-300">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
-                        Project Collaborations
-                    </h3>
-                    <p class="text-gray-300 leading-relaxed">Work together on innovative projects—tech, art, or anything in between—to showcase creativity.</p>
-                </div>
-                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-pink-500/50 transition-all duration-300">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-pink-500 rounded-full"></span>
-                        Sponsorships
-                    </h3>
-                    <p class="text-gray-300 leading-relaxed">Support our initiatives and gain visibility among students and faculty.</p>
-                </div>
-                <div class="bg-gray-800/50 p-8 rounded-xl shadow-2xl backdrop-blur-sm border border-gray-700/30 hover:border-blue-500/50 transition-all duration-300">
-                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-4 flex items-center gap-2">
-                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                        Club Alliances
-                    </h3>
-                    <p class="text-gray-300 leading-relaxed">Join forces with other clubs for cross-disciplinary events and activities.</p>
+            </div>
+
+            <!-- Exciting Opportunities -->
+            <div class="mb-12 md:mb-16">
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-6 text-center">Exciting Opportunities</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Event Co-Hosting</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Co-host tech talks, hackathons, or workshops to showcase expertise and connect with innovative students.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Research & Projects</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Co-develop AI/ML solutions and mentor students on real-world technical innovations.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Sponsorships</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Sponsor events to enhance your brand presence and support the growth of young tech talent.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Institutional Alliances</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Build interdisciplinary connections through events, research, and knowledge-sharing programs.
+                        </p>
+                    </div>
+                    <div class="bg-gray-900/80 p-6 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50 md:col-span-2">
+                        <h3 class="text-lg md:text-xl font-semibold text-indigo-400 mb-3">Mentorship Programs</h3>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            Inspire and guide students through career talks, mentoring, and skill-development sessions.
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <!-- Call to Action -->
-            <div class="text-center mt-16">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Partner?</h2>
-                <p class="text-gray-300 mb-8 text-lg max-w-2xl mx-auto">Let's make something amazing together. Reach out to discuss possibilities!</p>
-                <a href="/contact" class="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <div class="text-center">
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-6">Get Involved – Let’s Build the Future Together!</h2>
+                <p class="text-gray-300 mb-8 text-base md:text-lg max-w-2xl mx-auto">
+                    If you’re ready to co-host an event, sponsor an initiative, mentor aspiring technologists, or engage in collaborative research, join us in shaping the future of technology.
+                </p>
+                <a href="/contact" class="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-8 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-colors duration-300 shadow-md hover:shadow-lg">
                     Contact Us
                 </a>
             </div>
