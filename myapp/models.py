@@ -98,7 +98,10 @@ class ChallengeParticipation(models.Model):
         default='pending'
     )
     review_notes = models.TextField(blank=True, null=True)
-    
+
+    class Meta:
+        unique_together = ('user', 'challenge')
+
     def __str__(self):
         return f"{self.user.username} - {self.challenge.title}"
     
