@@ -5,60 +5,65 @@
 
 {% block content %}
     <!-- Contact Header -->
-    <section class="bg-black text-white py-12 md:py-16 relative">
-        <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
-        <div class="container mx-auto text-center px-4 relative z-10">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Contact Us</h1>
+    <section class="bg-gradient-to-r from-gray-900 to-black text-white py-12 md:py-16 relative">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text">Contact Us</h1>
             <p class="text-lg md:text-xl text-gray-300">Connect with The Cognito Club for inquiries or collaborations.</p>
         </div>
     </section>
 
     <!-- Contact Content -->
-    <section class="py-12 md:py-16 bg-black relative z-10">
-        <div class="container mx-auto px-4 max-w-3xl">
+    <section class="bg-black text-white relative min-h-screen">
+        <!-- Particle Background -->
+        <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+        
+        <div class="container mx-auto px-4 py-12 md:py-16 relative z-10 max-w-3xl">
             <!-- Contact Form -->
-            <div class="bg-black p-8 rounded-lg shadow-lg mb-8 border border-gray-800">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Drop Us a Line</h2>
+            <div class="bg-gray-900/80 p-6 md:p-8 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50 mb-8">
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-6 text-center">Drop Us a Line</h2>
                 <form action="{% url 'contact' %}" method="POST" class="space-y-6">
                     {% csrf_token %}
                     <div>
-                        <input type="text" id="name" name="name" class="w-full p-3 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 bg-black text-white placeholder-gray-400" placeholder="Your Name" required>
+                        <input type="text" id="name" name="name" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none placeholder-gray-500" placeholder="Your Name" required>
                     </div>
                     <div>
-                        <input type="email" id="email" name="email" class="w-full p-3 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 bg-black text-white placeholder-gray-400" placeholder="Your Email" required>
+                        <input type="email" id="email" name="email" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none placeholder-gray-500" placeholder="Your Email" required>
                     </div>
                     <div>
-                        <textarea id="message" name="message" rows="5" class="w-full p-3 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500 bg-black text-white placeholder-gray-400" placeholder="Your Message" required></textarea>
+                        <textarea id="message" name="message" rows="5" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none placeholder-gray-500" placeholder="Your Message" required></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-white text-black py-3 px-6 rounded-md font-semibold hover:bg-gray-100 transition duration-300 focus:ring-2 focus:ring-gray-500">Submit</button>
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-colors duration-300 shadow-md hover:shadow-lg">Submit</button>
                 </form>
                 {% if messages %}
-                    <div class="mt-4">
+                    <div class="mt-6 text-center">
                         {% for message in messages %}
-                            <p class="text-white">{{ message }}</p>
+                            <p class="text-gray-200 text-sm md:text-base">{{ message }}</p>
                         {% endfor %}
                     </div>
                 {% endif %}
             </div>
+
             <!-- Contact Info -->
-            <div class="text-center">
-                <h3 class="text-xl font-semibold text-gray-300 mb-4">Reach Out Directly</h3>
-                <p class="text-gray-400 mb-2"><strong>Email:</strong>  thecognitoclub@gmail.com</p>
-                <p class="text-gray-400 mb-2"><strong>Phone:</strong>  +91 7898575626/ +91 8017970125</p>
-                <p class="text-gray-400 mb-6"><strong>Visit Us:</strong> 45th km, NH - 209,Jakkasandra Post, Bengaluru - Kanakapura Rd, Bengaluru, Karnataka 562112</p>
+            <div class="bg-gray-900/80 p-6 md:p-8 rounded-xl shadow-lg backdrop-blur-md border border-gray-800/50 text-center">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-4">Reach Out Directly</h3>
+                <div class="space-y-3 text-gray-300 text-sm md:text-base">
+                    <p><span class="text-gray-400 font-semibold">Email:</span> thecognitoclub@gmail.com</p>
+                    <p><span class="text-gray-400 font-semibold">Phone:</span> +91 7898575626 / +91 8017970125</p>
+                    <p><span class="text-gray-400 font-semibold">Visit Us:</span> 45th km, NH - 209, Jakkasandra Post, Bengaluru - Kanakapura Rd, Bengaluru, Karnataka 562112</p>
+                </div>
                 
                 <!-- Social Media Links -->
-                <h3 class="text-2xl font-semibold text-gray-300 mb-8">Follow Us</h3>
-                <div class="flex justify-center gap-12 items-center">
-                    <a href="https://x.com/thecognitoclub" class="text-3xl text-white hover:text-red-500 transition duration-300 pt-1">
+                <h3 class="text-xl md:text-2xl font-bold text-white mt-8 mb-6">Follow Us</h3>
+                <div class="flex justify-center gap-8 items-center">
+                    <a href="https://x.com/thecognitoclub" class="text-3xl text-gray-300 hover:text-indigo-400 transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
                             <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
                         </svg>
                     </a>
-                    <a href="https://www.linkedin.com/company/the-cognito-club/" class="text-3xl text-white hover:text-red-500 transition duration-300">
+                    <a href="https://www.linkedin.com/company/the-cognito-club/" class="text-3xl text-gray-300 hover:text-indigo-400 transition-colors duration-300">
                         <i class="bi bi-linkedin"></i>
                     </a>
-                    <a href="https://www.instagram.com/thecognitoclub/" class="text-3xl text-white hover:text-red-500 transition duration-300">
+                    <a href="https://www.instagram.com/thecognitoclub/" class="text-3xl text-gray-300 hover:text-indigo-400 transition-colors duration-300">
                         <i class="bi bi-instagram"></i>
                     </a>
                 </div>
