@@ -35,7 +35,7 @@ class CustomUserCreationForm(UserCreationForm):
     last_name = forms.CharField(max_length=30, required=True)
     email = forms.EmailField(required=True)
     mobile = forms.CharField(max_length=15, required=True)
-    usn = forms.CharField(max_length=20, required=True)
+    usn = forms.CharField(max_length=20, min_length=10, required=True)
     
     class Meta:
         model = User
@@ -160,12 +160,14 @@ def dashboard(request):
     user = request.user
     try:
         user_profile = UserProfile.objects.get(user=user)
+        upcoming_events = Event.objects.filter(date__gte=timezone.now()).order_by('date')[:3]
         context = {
             'first_name': user.first_name,
             'last_name': user.last_name,
             'email': user.email,
             'mobile': user_profile.mobile,
-            'usn': user_profile.usn,  
+            'usn': user_profile.usn,
+            'upcoming_events': upcoming_events
         }
     except UserProfile.DoesNotExist:
         context = {
@@ -174,6 +176,7 @@ def dashboard(request):
             'email': user.email,
             'mobile': 'N/A',
             'usn': 'N/A',
+            'upcoming_events': []
         }
     return render(request, 'myapp/dashboard.html', context)
 
