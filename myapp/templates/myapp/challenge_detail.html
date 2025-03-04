@@ -12,7 +12,7 @@
     </section>
 
      <!-- Time Remaining Section -->
-    <!--<section class="bg-black py-4">
+    <section class="bg-black py-4">
         <div class="container mx-auto px-4">
             <div class="bg-gray-900/90 p-4 rounded-lg backdrop-blur-sm border border-gray-800">
                 <h3 class="text-lg font-semibold text-white mb-2 text-center">Time Remaining</h3>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
     <!-- Challenge Content -->
     <section class="min-h-screen bg-black text-white relative">
@@ -157,6 +157,8 @@
                                 <div class="prose prose-invert text-gray-300 text-sm md:text-base">
                                     <p class="block">Start: {{ challenge.start_date|date:"M d, Y" }}</p>
                                     <p class="block">End: {{ challenge.end_date|date:"M d, Y" }}</p>
+                                    <p class="block">End: {{ challenge.end_date|date:"M d, Y" }}</p>
+
                                 </div>
                             </div>
                         </div>
@@ -165,37 +167,34 @@
             </div>
         </div>
     </section>
-    <!-- {% block extra_js %}
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-            // Get the end date from the template
-            const endDateText = document.querySelector('.block:last-child').textContent.replace('End: ', '');
-            const countDownDate = new Date(endDateText).getTime();
+    {% block extra_js %}
+<script>
+    // Set the end date for the challenge
+    const endDate = new Date("{{ challenge.end_date|date:'Y-m-d H:i:s' }}").getTime();
 
-            const updateTimer = () => {
-                const now = new Date().getTime();
-                const distance = countDownDate - now;
+    // Update the countdown every second
+    const timer = setInterval(function() {
+        const now = new Date().getTime();
+        const timeLeft = endDate - now;
 
-                if (distance < 0) {
-                    clearInterval(timerInterval);
-                    document.getElementById('challenge-timer').innerHTML = "Challenge Ended!";
-                    return;
-                }
+        // Calculate time units
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Update the timer display
+        document.getElementById("timer-days").textContent = String(days).padStart(2, '0');
+        document.getElementById("timer-hours").textContent = String(hours).padStart(2, '0');
+        document.getElementById("timer-minutes").textContent = String(minutes).padStart(2, '0');
+        document.getElementById("timer-seconds").textContent = String(seconds).padStart(2, '0');
 
-                document.getElementById('timer-days').innerText = String(days).padStart(2, '0');
-                document.getElementById('timer-hours').innerText = String(hours).padStart(2, '0');
-                document.getElementById('timer-minutes').innerText = String(minutes).padStart(2, '0');
-                document.getElementById('timer-seconds').innerText = String(seconds).padStart(2, '0');
-            };
-
-            const timerInterval = setInterval(updateTimer, 1000);
-            updateTimer(); // Initial call
-        });
-        </script>
-    {% endblock %} -->
+        // If the countdown is finished, clear the interval
+        if (timeLeft < 0) {
+            clearInterval(timer);
+            document.getElementById("challenge-timer").innerHTML = "Challenge Ended";
+        }
+    }, 1000);
+</script>
+{% endblock %}
 {% endblock %}
