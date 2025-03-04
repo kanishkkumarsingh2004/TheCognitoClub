@@ -186,6 +186,18 @@ CKEDITOR_5_CONFIGS = {
                 { 'model': 'heading5', 'view': 'h5', 'title': 'Heading 5', 'class': 'ck-heading_heading5' },
                 { 'model': 'heading6', 'view': 'h6', 'title': 'Heading 6', 'class': 'ck-heading_heading6' }
             ]
+        },
+        'link': {
+            'decorators': {
+                'mask': {
+                    'mode': 'manual',
+                    'label': 'Mask',
+                    'attributes': {
+                        'target': '_blank',
+                        'rel': 'noopener noreferrer'
+                    }
+                }
+            }
         }
     },
 }
