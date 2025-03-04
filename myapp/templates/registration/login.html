@@ -49,6 +49,9 @@
                             <div class="text-red-500 text-sm mt-1">{{ form.password.errors }}</div>
                         {% endif %}
                     </div>
+                    <div class="text-right">
+                        <a href="{% url 'password_reset' %}" class="text-gray-400 hover:text-white transition duration-300 text-sm">Forgot Password?</a>
+                    </div>
                     <button type="submit" class="w-full bg-white text-black py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition duration-300 shadow-lg focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900">Login</button>
                 </form>
                 <p class="text-gray-400 text-center mt-4">Don't have an account? <a href="{% url 'signup' %}" class="text-white hover:text-gray-300 transition duration-300">Sign Up</a></p>
