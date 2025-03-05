@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.title }} - Event Details{% endblock %}
+
+{% block content %}
+<section class="bg-black text-white py-12 md:py-16">
+    <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-gray-900/75 p-8 rounded-2xl shadow-2xl backdrop-blur-sm border border-gray-800">
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 text-indigo-400">{{ event.title }}</h1>
+                <div class="space-y-6">
+                    <div class="bg-gray-800/50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-3 text-gray-200">Event Description</h3>
+                        <p class="text-gray-300 leading-relaxed">{{ event.description }}</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-800/50 p-6 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-indigo-500/10 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-200">Date & Time</h3>
+                                    <p class="text-gray-300">{{ event.date|date:"F j, Y, g:i a" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-800/50 p-6 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-500/10 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-200">Venue</h3>
+                                    <p class="text-gray-300">{{ event.venue }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}All Events - The Cognito Club{% endblock %}
+
+{% block content %}
+<section class="bg-black text-white py-12 md:py-16">
+    <div class="hero-particles absolute inset-0 z-0" id="particles-js"></div>
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-6">All Events</h1>
+        <div class="space-y-4">
+            {% for event in events %}
+            <div class="bg-gray-800/75 p-6 rounded-lg shadow-lg hover:bg-gray-700/75 transition-colors duration-300 backdrop-blur-sm border border-gray-700">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-2xl font-bold text-indigo-400 mb-1">{{ event.title }}</h2>
+                        <p class="text-gray-300 mb-2">{{ event.description|truncatechars:30 }}</p>
+                        <p class="text-gray-400 text-sm">{{ event.date|date:"F j, Y, g:i a" }}</p>
+                        <div class="text-right mt-2">
+                            <a href="{% url 'event_detail' event.id %}" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-indigo-700 hover:to-purple-700 transition-colors duration-300 shadow-md hover:shadow-lg">
+                                View Event Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

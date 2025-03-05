@@ -222,6 +222,14 @@ def dashboard_view(request):
     }
     return render(request, 'myapp/dashboard.html', context)
 
+def all_events(request):
+    events = Event.objects.all().order_by('date')
+    return render(request, 'myapp/all_events.html', {'events': events})
+
+def event_detail(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    return render(request, 'myapp/event_detail.html', {'event': event})
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
