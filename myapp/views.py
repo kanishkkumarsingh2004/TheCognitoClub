@@ -8,8 +8,8 @@ from django.contrib import messages
 from django.utils import timezone
 from django import forms
 from dotenv import load_dotenv
-from .models import Event, UserProfile, Registration, RegistrationSettings, Challenge, ChallengeParticipation
-from .forms import RegistrationForm, CustomLoginForm
+from .models import Event, UserProfile, Registration, RegistrationSettings, Challenge, ChallengeParticipation, EventFormField
+from .forms import RegistrationForm, CustomLoginForm, DynamicEventRegistrationForm
 from django.http import JsonResponse
 import os
 from django.db import IntegrityError
@@ -346,3 +346,22 @@ def join_challenge(request, challenge_id):
             messages.error(request, f'Error joining challenge: {str(e)}')
         
         return redirect('challenge_detail', challenge_id=challenge_id)
+
+def event_registration(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    
+    if request.method == 'POST':
+        form = DynamicEventRegistrationForm(event, request.POST)
+        if form.is_valid():
+            # Process form data
+            registration_data = form.cleaned_data
+            # Save registration data
+            messages.success(request, 'Registration successful!')
+            return redirect('registration_success')
+    else:
+        form = DynamicEventRegistrationForm(event)
+    
+    return render(request, 'myapp/event_registration.html', {
+        'event': event,
+        'form': form
+    })

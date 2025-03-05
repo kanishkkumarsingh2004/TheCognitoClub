@@ -1,15 +1,20 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Event, UserProfile, RegistrationSettings, Registration, Challenge, ChallengeParticipation
+from .models import Event, UserProfile, RegistrationSettings, Registration, Challenge, ChallengeParticipation, EventFormField
 from django.http import HttpResponse
 import csv
 from django_ckeditor_5.widgets import CKEditor5Widget
 from django import forms
 
 
+class EventFormFieldInline(admin.TabularInline):
+    model = EventFormField
+    extra = 1
+
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
+    inlines = [EventFormFieldInline]
     list_display = ('title', 'date', 'venue', 'created_at')
     search_fields = ('title', 'description')
 

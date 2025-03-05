@@ -109,3 +109,27 @@ class ChallengeParticipation(models.Model):
         # Ensure USN is stored in uppercase
         self.usn = self.usn.upper()
         super().save(*args, **kwargs)
+
+class EventFormField(models.Model):
+    EVENT_FIELD_TYPES = [
+        ('text', 'Text'),
+        ('number', 'Number'),
+        ('email', 'Email'),
+        ('tel', 'Phone'),
+        ('team', 'Team Name'),
+    ]
+
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='form_fields')
+    field_name = models.CharField(max_length=100)
+    field_type = models.CharField(max_length=20, choices=EVENT_FIELD_TYPES)
+    required = models.BooleanField(default=True)
+    max_length = models.IntegerField(null=True, blank=True)
+    min_length = models.IntegerField(null=True, blank=True)
+    is_unique = models.BooleanField(default=False)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.event.title} - {self.field_name}"

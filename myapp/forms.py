@@ -53,3 +53,40 @@ class CustomLoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         self.fields['username']
         self.fields['password']
+
+
+class DynamicEventRegistrationForm(forms.Form):
+    def __init__(self, event, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        # Add fields dynamically based on event configuration
+        for field_config in event.form_fields.all():
+            field_kwargs = {
+                'required': field_config.required,
+                'label': field_config.field_name
+            }
+            
+            if field_config.max_length:
+                field_kwargs['max_length'] = field_config.max_length
+            if field_config.min_length:
+                field_kwargs['min_length'] = field_config.min_length
+
+            if field_config.field_type == 'text':
+                self.fields[field_config.field_name] = forms.CharField(**field_kwargs)
+            elif field_config.field_type == 'number':
+                self.fields[field_config.field_name] = forms.IntegerField(**field_kwargs)
+            elif field_config.field_type == 'email':
+                self.fields[field_config.field_name] = forms.EmailField(**field_kwargs)
+            elif field_config.field_type == 'tel':
+                self.fields[field_config.field_name] = forms.CharField(**field_kwargs)
+            elif field_config.field_type == 'team':
+                field_kwargs['max_length'] = 3
+                field_kwargs['min_length'] = 1
+                self.fields[field_config.field_name] = forms.CharField(**field_kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        # Convert USN to uppercase if present
+        if 'usn' in cleaned_data:
+            cleaned_data['usn'] = cleaned_data['usn'].upper()
+        return cleaned_data
